@@ -11,7 +11,7 @@ const findByEmail = async (email) => {
 }
 
 const register = async (userInfo) => {
-    const newUser = pool.query(
+    const newUser = await pool.query(
         "INSERT INTO users(name, email, password, activity_level, desired_loss_rate, manual_mode, birth_date, weight, gender) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
         [userInfo.name, userInfo.email, userInfo.password, userInfo.activity_level, userInfo.desired_loss_rate, userInfo.manual_mode, userInfo.birth_date, userInfo.weight, userInfo.gender])
     return newUser.rows[0]
