@@ -31,11 +31,9 @@ authRouter.post('/login', async (req, res) => {
         const user = await users.findByEmail(email)
         if (user && bcrypt.compareSync(password, user.password)){
             const token = generateToken(user)
-            const userData = await users.findUserInfo(username)
             res.status(200).json({ 
-                message: ` ${username} logged in`, 
-                token: token, 
-                user: {...userData}
+                message: ` ${user.name} logged in`, 
+                token: token
             })
         } else {
             res.status(400).json({ message: 'invalid email or password' })
