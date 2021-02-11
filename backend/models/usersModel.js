@@ -27,7 +27,7 @@ const update = async (newInfo, id) => {
 }
 
 const remove = async (id) => {
-    pool.query("DELETE * FROM users WHERE id = $1", [id])
+    await pool.query("DELETE * FROM users WHERE id = $1", [id])
 }
 
 module.exports = {

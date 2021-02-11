@@ -8,9 +8,13 @@ const app = express()
 app.use(cors)
 app.use(express.json())
 
-app.use('api/auth', authRouter)
-app.use('api/users', userRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/users', userRouter)
 
-app.listen(5000, () => {
-    console.log('listening on port 5000')
+app.get('/', (req, res) => {
+    res.send('api up')
+})
+
+app.listen(5005, () => {
+    console.log('listening on port 5005')
 })
