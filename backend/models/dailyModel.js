@@ -32,7 +32,7 @@ const update = async (newInfo, id) => {
 }
 
 const remove = async (id) => {
-    await pool.query("DELETE * FROM daily_data WHERE id = $1", [id])
+    await pool.query("DELETE FROM daily_data WHERE id = $1", [id])
 }
 
 module.exports = {

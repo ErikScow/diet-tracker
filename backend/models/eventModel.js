@@ -7,7 +7,7 @@ const findById = async (id) => {
 
 const findAllByDay = async (day_id) => {
     const allEvents = await pool.query("SELECT * FROM calorie_events WHERE day_id=$1", [day_id])
-    return allEvents.rows[0]
+    return allEvents.rows
 }
 
 const add = async (eventInfo) => {
@@ -18,7 +18,7 @@ const add = async (eventInfo) => {
 }
 
 const remove = async (id) => {
-    await pool.query("DELETE * FROM calorie_events WHERE id = $1", [id])
+    await pool.query("DELETE FROM calorie_events WHERE id = $1", [id])
 }
 
 module.exports = {

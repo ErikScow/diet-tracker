@@ -7,7 +7,7 @@ const { validateDate } = require('../middleware/dailyMiddleware')
 const dailyDataRouter = express.Router()
 
 const calorieEventRouter = require('./calorieEventRouter')
-dailyDataRouter.use('/:date/events', calorieEventRouter)
+dailyDataRouter.use('/:date/events', validateDate, calorieEventRouter)
 
 dailyDataRouter.get('/', async (req, res) => {
     const userId = req.user.id
