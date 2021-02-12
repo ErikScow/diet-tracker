@@ -1,9 +1,9 @@
-const events = require('../models/eventsModel')
+const events = require('../models/eventModel')
 
 
 
 const validateEventId = async (req, res, next) => {
-    const {id} = req.body
+    const id = parseInt(req.params.id)
 
     try {
         const isValid = await events.findById(id)

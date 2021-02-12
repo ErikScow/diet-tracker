@@ -5,8 +5,9 @@ const validateDate = async (req, res, next) => {
     const userId = req.user.id
 
     try {
-        const isValid = await daily.findByDate(date, userId)
-        if (isValid){
+        const day = await daily.findByDate(date, userId)
+        if (day){
+            req.dateId = day.id
             next()
         } else {
             res.status(400).json({ message: "date does not exist" })
