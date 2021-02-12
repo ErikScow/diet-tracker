@@ -21,8 +21,8 @@ const update = async (newInfo, id) => {
     const original = await findById(id)
     const updated = { ...original, ...newInfo }
     const updatedUser = await pool.query(
-        "UPDATE users SET name=$1 email=$2 password=$3 activity_level=$4 desired_loss_rate=$5 manual_mode=$6 birth_date=$7 weight=$8 gender=$9 RETURNING *",
-        [updated.name, updated.email, updated.password, updated.activity_level, updated.desired_loss_rate, updated.manual_mode, updated.birth_date, updated.weight, updated.gender])
+        "UPDATE users SET name=$1, email=$2, password=$3, activity_level=$4, desired_loss_rate=$5, manual_mode=$6, birth_date=$7, weight=$8, gender=$9 WHERE id = $10 RETURNING *",
+        [updated.name, updated.email, updated.password, updated.activity_level, updated.desired_loss_rate, updated.manual_mode, updated.birth_date, updated.weight, updated.gender, id])
     return updatedUser.rows[0]
 }
 

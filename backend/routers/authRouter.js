@@ -5,10 +5,11 @@ const jwt = require('jsonwebtoken')
 const users = require('../models/usersModel')
 const secrets = require('../config/secrets')
 
+const { validateUser, uniqueEmail } = require('../middleware/usersMiddleware')
+
 const authRouter = express.Router()
 
-authRouter.post('/register', async (req, res) => {
-    console.log('made it here')
+authRouter.post('/register', validateUser, uniqueEmail, async (req, res) => {
 
     const newUserInfo = req.body
 
@@ -33,6 +34,7 @@ authRouter.post('/login', async (req, res) => {
             const token = generateToken(user)
             res.status(200).json({ 
                 message: ` ${user.name} logged in`, 
+                id: user.id,
                 token: token
             })
         } else {

@@ -5,14 +5,14 @@ const findById = async (id) => {
     return day.rows[0]
 }
 
-const findByDate = async (day) => {
-    const day = await pool.query("SELECT * FROM daily_data WHERE date=$1", [day])
-    return day.rows[0]
+const findByDate = async (day, user_id) => {
+    const dayData = await pool.query("SELECT * FROM daily_data WHERE date=$1 and user_id=$2", [day, user_id])
+    return dayData.rows[0]
 }
 
 const findAllByUser = async (user_id) => {
     const allDailyData = await pool.query("SELECT * FROM daily_data WHERE user_id=$1", [user_id])
-    return allDailyData.rows[0]
+    return allDailyData.rows
 }
 
 const add = async (dayInfo) => {
@@ -26,8 +26,8 @@ const update = async (newInfo, id) => {
     const original = await findById(id)
     const updated = { ...original, ...newInfo }
     const updatedDay = await pool.query(
-        "UPDATE daily_data SET date=$1 calorie_total=$2 weight=$3 bmr=$4 calorie_suggestion=$5 positive=$6 user_id=$7 RETURNING *",
-        [updated.date, updated.calorie_total, updated.weight, updated.bmr, updated.calorie_suggestion, updated.positive, updated.user_id])
+        "UPDATE daily_data SET date=$1, calorie_total=$2, weight=$3, bmr=$4, calorie_suggestion=$5, positive=$6, user_id=$7 WHERE id=$8 RETURNING *",
+        [updated.date, updated.calorie_total, updated.weight, updated.bmr, updated.calorie_suggestion, updated.positive, updated.user_id, id])
     return updatedDay.rows[0]
 }
 
