@@ -4,6 +4,8 @@ import * as yup from 'yup'
 import FormOne from './FormOne'
 import FormTwo from './FormTwo'
 
+import { register } from '../../api/backendCalls'
+
 const validationSchema = yup.object().shape({
     name: yup
         .string()
@@ -51,11 +53,11 @@ function Registration(props) {
     const [apiErrorMessage, setApiErrorMessage] = useState('')
 
     const nextStep = () => {
-        setStep(step++)
+        setStep(step + 1)
     }
 
     const prevStep = () => {
-        setStep(step--)
+        setStep(step - 1)
     }
 
     const handleChange = (e) => {
@@ -82,8 +84,9 @@ function Registration(props) {
         })
     }
 
-    const handleSubmit = () => {
-        //imported api call here to register user
+    const handleSubmit = e => {
+        e.preventDefault()
+        register(fields)
     }
 
     switch(step) {
@@ -92,6 +95,7 @@ function Registration(props) {
                 <FormOne 
                     nextStep={nextStep}
                     handleChange={handleChange}
+                    validationErrors={validationErrors}
                 />
             )
         case 2:
@@ -99,6 +103,7 @@ function Registration(props) {
                 <FormTwo 
                     prevStep={prevStep}
                     handleChange={handleChange}
+                    validationErrors={validationErrors}
                     handleSubmit={handleSubmit}
                 />
             )

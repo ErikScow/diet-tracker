@@ -42,7 +42,7 @@ const checkToken = (userId)  => {
     })
 }
 
-module.exports = {
+export {
     axiosWithAuth,
     register,
     login,
