@@ -43,7 +43,7 @@ function Registration(props) {
         desired_loss_rate: 0,
         manual_mode: false,
         //all dates will be in the format yyyymmdd
-        birth_date: 00000000,
+        birth_date: '00000000',
         weight: 0,
         gender: ''
     })
@@ -82,6 +82,10 @@ function Registration(props) {
         })
     }
 
+    const handleSubmit = () => {
+        //imported api call here to register user
+    }
+
     switch(step) {
         case 1:
             return(
@@ -95,6 +99,7 @@ function Registration(props) {
                 <FormTwo 
                     prevStep={prevStep}
                     handleChange={handleChange}
+                    handleSubmit={handleSubmit}
                 />
             )
     }

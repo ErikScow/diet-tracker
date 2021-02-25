@@ -6,6 +6,7 @@ const users = require('../models/usersModel')
 const secrets = require('../config/secrets')
 
 const { validateUser, uniqueEmail } = require('../middleware/usersMiddleware')
+const { authenticate } = require('../middleware/authMiddleware')
 
 const authRouter = express.Router()
 
@@ -44,6 +45,10 @@ authRouter.post('/login', async (req, res) => {
         console.error(error)
         res.status(500).json({ message: 'could not login to database' })
     }
+})
+
+authRouter.get('/:id', authenticate, async (req, res) => {
+    res.status(200).json({ message: 'token is valid' })
 })
 
 function generateToken(user){

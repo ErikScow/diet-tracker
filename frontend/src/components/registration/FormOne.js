@@ -1,10 +1,31 @@
 import React from 'react';
+import {  } from '@material-ui/core'
 
 function FormOne(props) {
+
+
     return (
-        <div>
+        <form>
+            <label>
+                Name
+                <input 
+                
+                />
+            </label>
+            <label>
+                Email
+                <input 
+                
+                />
+            </label>
+            <label>
+                Password
+                <input 
+                
+                />
+            </label>
             
-        </div>
+        </form>
     );
 }
 
