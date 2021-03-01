@@ -1,38 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function FormOne({ handleChange, validationErrors, nextStep }) {
+import { Container, FormGroup, InputLabel, TextField, FormHelperText, Button, Grid, Box} from '@material-ui/core'
+
+function FormOne({ fields, handleChange, validationErrors, validationErrorsCheck, nextStep }) {
 
     return (
-        <form>
-            <label>
-                Name
-                <input 
-                    type='text'
+    <Grid container direction='row'>
+        <Grid item xs={2} sm ={3} md={4} lg={5}></Grid>
+        <Grid item container direction='column' xs={8} sm={6} md={4} lg={2}>
+            <Box m={1}>
+                <TextField
+                    label='Name'
+                    variant='outlined'
+                    error={validationErrorsCheck.name}
+                    helperText={validationErrors.name}
+                    size='small'
+                    fullWidth={true}
+                    
                     name='name'
+                    value={fields.name}
                     onChange={handleChange}
                 />
-                {validationErrors.name ? (<p className="form-error">{validationErrors.name}</p>) : null}
-            </label>
-            <label>
-                Email
-                <input 
-                    type='text'
+            </Box>
+            
+            <Box m={1}>
+                <TextField 
+                    label='Email'
+                    variant='outlined'
+                    error={validationErrorsCheck.email}
+                    helperText={validationErrors.email}
+                    size='small'
+                    fullWidth={true}
+
                     name='email'
+                    value={fields.email}
                     onChange={handleChange}
                 />
-                {validationErrors.email ? (<p className="form-error">{validationErrors.email}</p>) : null}
-            </label>
-            <label>
-                Password
-                <input 
+            </Box>
+            
+            <Box m={1}>
+                <TextField 
+                    label='Password'
+                    variant='outlined'
+                    error={validationErrorsCheck.password}
+                    helperText={validationErrors.password}
+                    size='small'
+                    fullWidth={true}
+
                     type='password'
                     name='password'
+                    value={fields.password}
                     onChange={handleChange}
                 />
-                {validationErrors.password ? (<p className="form-error">{validationErrors.password}</p>) : null}
-            </label>
-            <button type='button' onClick={nextStep}>Next</button>
-        </form>
+            </Box>
+            
+
+            <Box m={1}>
+                <Button variant='outlined' type='button' onClick={nextStep}>Next</Button>
+            </Box>
+                        
+        </Grid>
+        <Grid item xs={2} sm={3} md={4} lg={5}></Grid>
+    </Grid>
+        
     );
 }
 
