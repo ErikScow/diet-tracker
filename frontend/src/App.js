@@ -5,6 +5,7 @@ import {
   Switch,
   Route, 
 } from 'react-router-dom'
+import PrivateRoute from './components/common/PrivateRoute'
 import Welcome from './components/welcome/Welcome';
 import Login from './components/login/Login';
 import Registration from './components/registration/Registration';
@@ -20,9 +21,9 @@ function App() {
         <Route exact path='/' component={Welcome} /> 
         <Route path='/login' component={Login} />
         <Route path='/register' component={Registration} />
-        <Route path='/dashboard' component={Dashbaord} />
-        <Route path='/userinfo' component={UserInfo} />
-        <Route path='/historical' component={Historical} />
+        <PrivateRoute path='/dashboard' component={Dashbaord} />
+        <PrivateRoute path='/userinfo' component={UserInfo} />
+        <PrivateRoute path='/historical' component={Historical} />
       </Switch>
       </div>
     </Router>

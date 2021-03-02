@@ -119,6 +119,7 @@ function Registration(props) {
                 incomplete: null
             })
             console.log(dataToSubmit)
+            register(dataToSubmit)
         }
         
     }

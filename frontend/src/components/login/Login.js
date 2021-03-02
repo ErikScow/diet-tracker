@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, FormGroup, InputLabel, TextField, FormHelperText, Button, Grid, Box} from '@material-ui/core'
+
+import { login } from '../../api/backendCalls'
+import { asyncUpdateUserId } from '../../state/slice'
 
 const validationSchema = yup.object().shape({
     email: yup
@@ -20,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Login() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const classes = useStyles()
 
     const [fields, setFields] = useState({
@@ -77,9 +85,20 @@ function Login() {
                 incomplete: null
             })
             console.log(fields)
-        }
-        
-    }
+            axios
+                .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/login`,fields)
+                .then(res => {
+                    console.log(res)
+                    localStorage.setItem('token', res.data.token)
+                    dispatch(asyncUpdateUserId(res.data.id))
+                    history.push('/dashboard')
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+                    }
+                    
+                }
 
     useEffect(() => {
         validationSchema.isValid(fields).then(isValid => {

@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { asyncUpdateUserId } from '../state/slice'
 
 const axiosWithAuth = () => {
     const token = localStorage.getItem('token')
@@ -26,6 +28,7 @@ const login = (loginInfo) => {
     .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/login`,loginInfo)
     .then(res => {
         console.log(res)
+        useDispatch()(asyncUpdateUserId(res.data.id))
     })
     .catch(err => {
         console.error(err)
@@ -33,13 +36,7 @@ const login = (loginInfo) => {
 }
 
 const checkToken = (userId)  => {
-    axiosWithAuth.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/${userId}`)
-    .then(res => {
-        console.log(res)
-    })
-    .catch(err => {
-        console.error(err)
-    })
+    return axiosWithAuth().get(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/${userId}`)
 }
 
 export {
