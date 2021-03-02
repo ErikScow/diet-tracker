@@ -84,21 +84,22 @@ function Login() {
                 ...validationErrors,
                 incomplete: null
             })
-            console.log(fields)
-            axios
-                .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/login`,fields)
+            login(fields)
                 .then(res => {
-                    console.log(res)
                     localStorage.setItem('token', res.data.token)
                     dispatch(asyncUpdateUserId(res.data.id))
                     history.push('/dashboard')
                 })
                 .catch(err => {
-                    console.error(err)
-                })
+                    if (err.message){
+                        setApiErrorMessage(err.response.data.message)
+                    } else {
+                        setApiErrorMessage("Network Error")
                     }
+                })
+        }
                     
-                }
+    }
 
     useEffect(() => {
         validationSchema.isValid(fields).then(isValid => {

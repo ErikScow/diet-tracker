@@ -17,7 +17,7 @@ const uniqueEmail = async (req, res, next) => {
     try {
         const emailInUse = await users.findByEmail(email)
         if (emailInUse){
-            res.status(400).json({ message: "email in use" })
+            res.status(400).json({ message: "There is already an account associated with this email address. Please use a different one." })
         } else {
             next()
         }

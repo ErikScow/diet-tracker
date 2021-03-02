@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import * as yup from 'yup'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import FormOne from './FormOne'
 import FormTwo from './FormTwo'
 
-import { register } from '../../api/backendCalls'
+import { login, register } from '../../api/backendCalls'
 import { formatDateFromForm } from '../../utils/dateFormatting'
+import { asyncUpdateUserId } from '../../state/slice'
 
 const validationSchema = yup.object().shape({
     name: yup
@@ -43,6 +46,10 @@ const validationSchema = yup.object().shape({
 })
 
 function Registration(props) {
+    
+    const history = useHistory()
+    const dispatch = useDispatch()
+
     const [step, setStep] = useState(1)
     const [fields, setFields] = useState({
         name: '',
@@ -51,8 +58,7 @@ function Registration(props) {
         activity_level: '',
         desired_loss_rate: '',
         manual_mode: false,
-        //all dates will be in the format yyyymmdd
-        birth_date: '00000000',
+        birth_date: '2000-01-01',
         weight: '',
         gender: ''
     })
@@ -118,8 +124,30 @@ function Registration(props) {
                 ...validationErrors,
                 incomplete: null
             })
-            console.log(dataToSubmit)
             register(dataToSubmit)
+                .then(res => {
+                    login({ email: fields.email, password: fields.password})
+                        .then(res => {
+                            localStorage.setItem('token', res.data.token)
+                            dispatch(asyncUpdateUserId(res.data.id))
+                            history.push('/dashboard')
+                        })
+                        .catch(err => {
+                            if (err.message){
+                                setApiErrorMessage(err.response.data.message)
+                            } else {
+                                setApiErrorMessage("Network Error")
+                            }
+                        })
+                    
+                })
+                .catch(err => {
+                    if (err.message){
+                        setApiErrorMessage(err.response.data.message)
+                    } else {
+                        setApiErrorMessage("Network Error")
+                    }
+                })
         }
         
     }

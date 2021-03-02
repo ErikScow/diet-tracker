@@ -13,26 +13,12 @@ const axiosWithAuth = () => {
 }
 
 const register = (newUser) => {
-    axios
-    .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/register`,newUser)
-    .then(res => {
-        console.log(res)
-    })
-    .catch(err => {
-        console.error(err)
-    })
+    return axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/register`,newUser)
 }
 
 const login = (loginInfo) => {
-    axios
-    .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/login`,loginInfo)
-    .then(res => {
-        console.log(res)
-        useDispatch()(asyncUpdateUserId(res.data.id))
-    })
-    .catch(err => {
-        console.error(err)
-    })
+    return axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/login`,loginInfo)
+
 }
 
 const checkToken = (userId)  => {

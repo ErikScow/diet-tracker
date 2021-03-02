@@ -39,11 +39,11 @@ authRouter.post('/login', async (req, res) => {
                 token: token
             })
         } else {
-            res.status(400).json({ message: 'invalid email or password' })
+            res.status(400).json({ message: 'Invalid email or password.' })
         }
     } catch (error) {
         console.error(error)
-        res.status(500).json({ message: 'could not login to database' })
+        res.status(500).json({ message: 'Could not login to database' })
     }
 })
 

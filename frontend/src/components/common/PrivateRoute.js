@@ -6,29 +6,38 @@ import { axiosWithAuth, checkToken } from '../../api/backendCalls'
 
 function PrivateRoute({component: Component, ...rest}) {
     const userId = useSelector((state) => state.slice.id)
+
+    const [loading, setLoading] = useState(true)
     const [authenticated, setAuthenticated] = useState(false)
 
     useEffect(()=> {
-        console.log(userId)
         checkToken(userId)
             .then(res => {
                 setAuthenticated(true)
+                setLoading(false)
             })
             .catch(err => {
                 setAuthenticated(false)
+                localStorage.removeItem('token')
+                setLoading(false)
             })
-    },[])
+    },[userId])
 
-    return (
-        <Route 
+    if (loading){
+        return <div>loading</div>
+    }
+
+    return <Route 
             {...rest}
             render={props => {
-                authenticated ?
-                <Component {...props} />
-                : <Redirect to='/login' />
+                if (!authenticated){
+                    return <Redirect to='/login' />
+                } else {
+                    return <Component {...props} />
+                }
             }}
         />
-    );
+
 }
 
 export default PrivateRoute;
