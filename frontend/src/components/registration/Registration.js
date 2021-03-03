@@ -3,6 +3,7 @@ import * as yup from 'yup'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import Nav from '../common/Nav'
 import FormOne from './FormOne'
 import FormTwo from './FormTwo'
 
@@ -161,26 +162,33 @@ function Registration(props) {
     switch(step) {
         case 1:
             return(
-                <FormOne 
-                    fields={fields}
-                    nextStep={nextStep}
-                    handleChange={handleChange}
-                    validationErrors={validationErrors}
-                    validationErrorsCheck={validationErrorsCheck}
-                />
+                <div>
+                    <Nav />
+                    <FormOne 
+                        fields={fields}
+                        nextStep={nextStep}
+                        handleChange={handleChange}
+                        validationErrors={validationErrors}
+                        validationErrorsCheck={validationErrorsCheck}
+                    />
+                </div>
+                
             )
         case 2:
             return(
-                <FormTwo 
-                    fields={fields}
-                    prevStep={prevStep}
-                    handleChange={handleChange}
-                    validationErrors={validationErrors}
-                    validationErrorsCheck={validationErrorsCheck}
-                    isValid={isValid}
-                    handleSubmit={handleSubmit}
-                    apiErrorMessage={apiErrorMessage}
-                />
+                <div>
+                    <Nav />
+                    <FormTwo 
+                        fields={fields}
+                        prevStep={prevStep}
+                        handleChange={handleChange}
+                        validationErrors={validationErrors}
+                        validationErrorsCheck={validationErrorsCheck}
+                        isValid={isValid}
+                        handleSubmit={handleSubmit}
+                        apiErrorMessage={apiErrorMessage}
+                    />
+                </div>
             )
     }
 }

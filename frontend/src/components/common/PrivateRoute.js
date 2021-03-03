@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
 import { axiosWithAuth, checkToken } from '../../api/backendCalls'
+import { authenticate, deAuthenticate } from '../../state/slice'
 
 function PrivateRoute({component: Component, ...rest}) {
+    const dispatch = useDispatch()
+
     const userId = useSelector((state) => state.slice.id)
 
     const [loading, setLoading] = useState(true)
@@ -13,10 +16,12 @@ function PrivateRoute({component: Component, ...rest}) {
     useEffect(()=> {
         checkToken(userId)
             .then(res => {
+                dispatch(authenticate())
                 setAuthenticated(true)
                 setLoading(false)
             })
             .catch(err => {
+                dispatch(deAuthenticate())
                 setAuthenticated(false)
                 localStorage.removeItem('token')
                 setLoading(false)
