@@ -1,49 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, AppBar, Toolbar, Button } from '@material-ui/core'
+import { Typography, AppBar, Toolbar, Button, Menu,  IconButton, Icon} from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 
 import { deAuthenticate } from '../../state/slice'
 
+import DesktopNav from './DesktopNav'
+import MobileNav from './MobileNav'
+
 function Nav() {
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const loggedIn = useSelector((state) => state.slice.authenticated)
+    const [useMobile, setUseMobile] = useState(false)
 
-    const logOut = () => {
-        localStorage.removeItem('token')
-        dispatch(deAuthenticate())
-        history.push('/')
-    }
 
-    if (loggedIn){
-        return (
-            <AppBar position='static'>
-                <Toolbar>
-                    <Typography variant='h6'>
-                        Diet Journal
-                    </Typography>
-                    <Link to='/dashboard'><Button>Dashboard</Button></Link>
-                    <Link to='/userinfo'><Button>User Info</Button></Link>
-                    <Link to='/historical'><Button>Historical</Button></Link>
-                    <Button onClick={logOut} >Logout</Button>
-                </Toolbar>
-            </AppBar>
-        )
+    useEffect(() => {
+        const setResponsiveness = () => {
+          return window.innerWidth < 900
+            ? setUseMobile(true)
+            : setUseMobile(false)
+        };
+    
+        setResponsiveness();
+    
+        window.addEventListener("resize", () => setResponsiveness());
+      }, []);
+
+    if (useMobile){
+        return <MobileNav />
     }
-    return (
-        <AppBar position='static'>
-            <Toolbar>
-                <Typography variant='h6'>
-                    Diet Journal
-                </Typography>
-                <Link to='/login'><Button>Login</Button></Link>
-                <Link to='/register'><Button>Sign Up</Button></Link>
-            </Toolbar>
-           
-        </AppBar>
-    )
+    return <DesktopNav />
+    
 }
 
 export default Nav

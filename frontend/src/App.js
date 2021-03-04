@@ -9,7 +9,7 @@ import PrivateRoute from './components/common/PrivateRoute'
 import Welcome from './components/welcome/Welcome';
 import Login from './components/login/Login';
 import Registration from './components/registration/Registration';
-import Dashbaord from './components/dashboard/Dashbaord';
+import Dashboard from './components/dashboard/Dashboard';
 import UserInfo from './components/userInfo/UserInfo';
 import Historical from './components/historical/Historical';
 
@@ -21,7 +21,7 @@ function App() {
         <Route exact path='/' component={Welcome} /> 
         <Route path='/login' component={Login} />
         <Route path='/register' component={Registration} />
-        <PrivateRoute path='/dashboard' component={Dashbaord} />
+        <PrivateRoute path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/userinfo' component={UserInfo} />
         <PrivateRoute path='/historical' component={Historical} />
       </Switch>

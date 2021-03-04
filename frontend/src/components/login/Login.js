@@ -7,8 +7,10 @@ import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, FormGroup, InputLabel, TextField, FormHelperText, Button, Grid, Box} from '@material-ui/core'
 
+
+import { formattedDate } from '../../utils/dateFormatting'
 import { login } from '../../api/backendCalls'
-import { asyncUpdateUserId } from '../../state/slice'
+import { asyncUpdateFormattedDate, asyncUpdateUserId, asyncUpdateUserInfo } from '../../state/slice'
 
 import Nav from '../common/Nav'
 
@@ -88,14 +90,19 @@ function Login() {
             })
             login(fields)
                 .then(res => {
+                    const date = formattedDate()
+                    res.data.userInfo.age = parseInt(date.slice(0,4)) - parseInt(res.data.userInfo.birth_date.slice(0,4))
                     localStorage.setItem('token', res.data.token)
                     dispatch(asyncUpdateUserId(res.data.id))
+                    dispatch(asyncUpdateUserInfo(res.data.userInfo))
+                    dispatch(asyncUpdateFormattedDate(date))
                     history.push('/dashboard')
                 })
                 .catch(err => {
-                    if (err.message){
+                    if (err.response){
                         setApiErrorMessage(err.response.data.message)
                     } else {
+                        console.log(err)
                         setApiErrorMessage("Network Error")
                     }
                 })

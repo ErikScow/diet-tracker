@@ -36,7 +36,15 @@ authRouter.post('/login', async (req, res) => {
             res.status(200).json({ 
                 message: ` ${user.name} logged in`, 
                 id: user.id,
-                token: token
+                token: token,
+                userInfo: {
+                    activity_level: user.activity_level,
+                    desired_loss_rate: user.desired_loss_rate,
+                    manual_mode: user.manual_mode,
+                    birth_date: user.birth_date,
+                    weight: user.weight,
+                    gender: user.gender
+                }
             })
         } else {
             res.status(400).json({ message: 'Invalid email or password.' })
