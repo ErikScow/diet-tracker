@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import * as yup from 'yup'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Nav from '../common/Nav'
 import FormOne from './FormOne'
 import FormTwo from './FormTwo'
 
-import { login, register } from '../../api/backendCalls'
 import { formatDateFromForm } from '../../utils/dateFormatting'
-import { asyncUpdateUserId } from '../../state/slice'
+import { registerCall, updateApiRegisterError } from '../../state/authSlice'
 
 const validationSchema = yup.object().shape({
     name: yup
@@ -46,10 +45,13 @@ const validationSchema = yup.object().shape({
     
 })
 
-function Registration(props) {
+function Registration() {
     
     const history = useHistory()
     const dispatch = useDispatch()
+
+    const apiRegisterError = useSelector(state => state.authSlice.apiRegisterError)
+    const registerLoading = useSelector(state => state.authSlice.registerLoading)
 
     const [step, setStep] = useState(1)
     const [fields, setFields] = useState({
@@ -102,7 +104,7 @@ function Registration(props) {
                     [e.target.name]: true
                 })
             })
-        setApiErrorMessage(null)
+        dispatch(updateApiRegisterError(null))
         setFields({
             ...fields,
             [e.target.name]: e.target.value,
@@ -125,30 +127,10 @@ function Registration(props) {
                 ...validationErrors,
                 incomplete: null
             })
-            register(dataToSubmit)
-                .then(res => {
-                    login({ email: fields.email, password: fields.password})
-                        .then(res => {
-                            localStorage.setItem('token', res.data.token)
-                            dispatch(asyncUpdateUserId(res.data.id))
-                            history.push('/dashboard')
-                        })
-                        .catch(err => {
-                            if (err.message){
-                                setApiErrorMessage(err.response.data.message)
-                            } else {
-                                setApiErrorMessage("Network Error")
-                            }
-                        })
-                    
-                })
-                .catch(err => {
-                    if (err.message){
-                        setApiErrorMessage(err.response.data.message)
-                    } else {
-                        setApiErrorMessage("Network Error")
-                    }
-                })
+            dispatch(registerCall(dataToSubmit, {email: fields.email, password: fields.password}, (token) => {
+                localStorage.setItem('token', token)
+                history.push('/dashboard')
+            }))
         }
         
     }
@@ -186,7 +168,8 @@ function Registration(props) {
                         validationErrorsCheck={validationErrorsCheck}
                         isValid={isValid}
                         handleSubmit={handleSubmit}
-                        apiErrorMessage={apiErrorMessage}
+                        apiErrorMessage={apiRegisterError}
+                        registerLoading={registerLoading}
                     />
                 </div>
             )

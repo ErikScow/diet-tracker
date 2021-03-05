@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
+import { CircularProgress } from '@material-ui/core'
 
-import { checkToken } from '../../api/backendCalls'
-import { authenticate, deAuthenticate } from '../../state/slice'
+import { checkTokenCall } from '../../state/authSlice'
 
 function PrivateRoute({component: Component, ...rest}) {
     const dispatch = useDispatch()
 
-    const userId = useSelector((state) => state.slice.id)
-
-    const [loading, setLoading] = useState(true)
-    const [authenticated, setAuthenticated] = useState(false)
+    const userId = useSelector((state) => state.authSlice.userInfo.id)
+    const authenticated = useSelector(state => state.authSlice.authenticated)
+    const authCheckLoading = useSelector(state => state.authSlice.authCheckLoading)
 
     useEffect(()=> {
-        checkToken(userId)
-            .then(res => {
-                dispatch(authenticate())
-                setAuthenticated(true)
-                setLoading(false)
-            })
-            .catch(err => {
-                dispatch(deAuthenticate())
-                setAuthenticated(false)
-                localStorage.removeItem('token')
-                setLoading(false)
-            })
+        dispatch(checkTokenCall(userId, () => {
+            localStorage.removeItem('token')
+        }))
     },[userId])
 
-    if (loading){
-        return <div>loading</div>
+    if (authCheckLoading){
+        return <CircularProgress />
     }
 
     return <Route 

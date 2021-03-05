@@ -2,10 +2,9 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, AppBar, Toolbar, Button, Menu,  IconButton, Icon} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+import { Typography, AppBar, Toolbar, Button } from '@material-ui/core'
 
-import { deAuthenticate } from '../../state/slice'
+import { deAuthenticate } from '../../state/authSlice'
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -23,10 +22,10 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function Nav() {
+function DesktopNav() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const loggedIn = useSelector((state) => state.slice.authenticated)
+    const loggedIn = useSelector((state) => state.authSlice.authenticated)
 
     const classes = useStyles()
 
@@ -70,4 +69,4 @@ function Nav() {
     )
 }
 
-export default Nav
+export default DesktopNav

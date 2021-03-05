@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { useHistory } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { TextField, FormHelperText, Button, Grid, Box} from '@material-ui/core'
+import { TextField, FormHelperText, Button, Grid, Box, LinearProgress } from '@material-ui/core'
 
-
-import { formattedDate } from '../../utils/dateFormatting'
-import { login } from '../../api/backendCalls'
-import { asyncUpdateFormattedDate, asyncUpdateUserId, asyncUpdateUserInfo } from '../../state/slice'
+import { loginCall, updateApiLoginError } from '../../state/authSlice'
 
 import Nav from '../common/Nav'
 
@@ -33,6 +30,9 @@ function Login() {
     const history = useHistory()
     const classes = useStyles()
 
+    const apiLoginError = useSelector(state => state.authSlice.apiLoginError)
+    const loginLoading = useSelector(state => state.authSlice.loginLoading)
+
     const [fields, setFields] = useState({
         email: '',
         password: ''
@@ -40,7 +40,6 @@ function Login() {
     const [validationErrors, setValidationErrors] = useState({})
     const [validationErrorsCheck, setValidationErrorsCheck] = useState({})
     const [isValid, setIsValid] = useState(false)
-    const [apiErrorMessage, setApiErrorMessage] = useState('')
 
     const handleChange = (e) => {
         e.persist()
@@ -67,7 +66,7 @@ function Login() {
                     [e.target.name]: true
                 })
             })
-        setApiErrorMessage(null)
+        dispatch(updateApiLoginError(null))
         setFields({
             ...fields,
             [e.target.name]: e.target.value,
@@ -87,24 +86,10 @@ function Login() {
                 ...validationErrors,
                 incomplete: null
             })
-            login(fields)
-                .then(res => {
-                    const date = formattedDate()
-                    res.data.userInfo.age = parseInt(date.slice(0,4)) - parseInt(res.data.userInfo.birth_date.slice(0,4))
-                    localStorage.setItem('token', res.data.token)
-                    dispatch(asyncUpdateUserId(res.data.id))
-                    dispatch(asyncUpdateUserInfo(res.data.userInfo))
-                    dispatch(asyncUpdateFormattedDate(date))
-                    history.push('/dashboard')
-                })
-                .catch(err => {
-                    if (err.response){
-                        setApiErrorMessage(err.response.data.message)
-                    } else {
-                        console.log(err)
-                        setApiErrorMessage("Network Error")
-                    }
-                })
+            dispatch(loginCall(fields, (token) => {
+                localStorage.setItem('token', token)
+                history.push('/dashboard')
+            }))
         }
                     
     }
@@ -154,7 +139,8 @@ function Login() {
                     </Box>
                     
                     {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
-                    {apiErrorMessage ? (<FormHelperText className={classes.formError} error>{apiErrorMessage}</FormHelperText>) : null}
+                    {apiLoginError ? (<FormHelperText className={classes.formError} error>{apiLoginError}</FormHelperText>) : null}
+                    {loginLoading ? <LinearProgress /> : null}
                     <Box m={1}>
                         <Button variant='outlined' type='button' onClick={handleSubmit}>Login</Button>
                     </Box>

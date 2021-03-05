@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { asyncUpdateUserId } from '../state/slice'
+import { asyncUpdateUserId } from '../state/authSlice'
 
 const axiosWithAuth = () => {
     const token = localStorage.getItem('token')
@@ -51,8 +51,7 @@ const deleteCalorieEvent = (userId, formattedDate, eventId) => {
     return axiosWithAuth().delete(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/users/${userId}/daily/${formattedDate}/events/${eventId}`)
 }
 
-
-export {
+export default {
     axiosWithAuth,
     register,
     login,

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles'
 
-import { TextField, Select, MenuItem, Button, Grid, Box, InputLabel, FormHelperText, FormControl} from '@material-ui/core'
+import { TextField, Select, MenuItem, Button, Grid, Box, InputLabel, FormHelperText, FormControl, LinearProgress} from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck, prevStep, isValid, handleSubmit, apiErrorMessage}) {
+function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck, prevStep, isValid, handleSubmit, apiErrorMessage, registerLoading }) {
 
     const classes = useStyles()
 
@@ -146,6 +146,7 @@ function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck
 
             {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
             {apiErrorMessage ? (<FormHelperText className={classes.formError} error>{apiErrorMessage}</FormHelperText>) : null}
+            {registerLoading ? <LinearProgress /> : null}
             <Box m={1}>
                 <Button variant='outlined' type='button' onClick={prevStep}>Back</Button>
                 <Button variant='outlined' type='button' onClick={handleSubmit}>Done</Button>
