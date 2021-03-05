@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
-import { axiosWithAuth, checkToken } from '../../api/backendCalls'
+import { checkToken } from '../../api/backendCalls'
 import { authenticate, deAuthenticate } from '../../state/slice'
 
 function PrivateRoute({component: Component, ...rest}) {

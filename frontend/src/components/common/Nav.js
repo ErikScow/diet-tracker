@@ -1,11 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography, AppBar, Toolbar, Button, Menu,  IconButton, Icon} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
-
-import { deAuthenticate } from '../../state/slice'
 
 import DesktopNav from './DesktopNav'
 import MobileNav from './MobileNav'
