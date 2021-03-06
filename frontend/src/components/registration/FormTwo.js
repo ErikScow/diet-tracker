@@ -21,19 +21,7 @@ const useStyles = makeStyles((theme) => ({
     formError: {
         padding: '0 15px'
     },
-    heightLabel: {
-        width: '30%',
-        paddingTop: '15px',
-        paddingLeft: '25px'
-    },
-    heightContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-    },
-    heightField: {
-        width: '40%',
-        paddingRight: '10px'
-    }
+    
   }));
 
 function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck, prevStep, isValid, handleSubmit, apiErrorMessage, registerLoading }) {
@@ -62,11 +50,11 @@ function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck
                     value={fields.activity_level}
                     onChange={handleChange}
                 >
-                    <MenuItem value={1} className={classes.selectOption}>Sedentary</MenuItem>
-                    <MenuItem value={2} className={classes.selectOption}>Daily Walking</MenuItem>
-                    <MenuItem value={3} className={classes.selectOption}>Exercise 3 times a week</MenuItem>
-                    <MenuItem value={4} className={classes.selectOption}>Excercise 5 times a week</MenuItem>
-                    <MenuItem value={5} className={classes.selectOption}>Active Job and exercisb and exercisb and sdfgsdfgsdfgsdfgsfgexercisb and exercise</MenuItem>
+                    <MenuItem value={0} className={classes.selectOption}>Manual Mode (will be up to you to add burned calories)</MenuItem>
+                    <MenuItem value={250} className={classes.selectOption}>Somewhat Active (250 calories burned per day)</MenuItem>
+                    <MenuItem value={500} className={classes.selectOption}>Active (500 calories burned per day)</MenuItem>
+                    <MenuItem value={750} className={classes.selectOption}>Very Active (750 calories burned per day)</MenuItem>
+                    <MenuItem value={1000} className={classes.selectOption}>Extremely Active (1000 calories burned per day)</MenuItem>
                 </Select>
                 <FormHelperText>{validationErrors.activity_level}</FormHelperText>
             </FormControl>

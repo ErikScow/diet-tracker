@@ -52,7 +52,6 @@ dailyDataRouter.put('/:date', validateDate, async (req, res) => {
     
     try {
         const updated = await dailyData.update(changes, userId)
-        console.log(updated)
         res.status(200).json({message: "updated successfully"})
     } catch (error) {
         console.error(error)

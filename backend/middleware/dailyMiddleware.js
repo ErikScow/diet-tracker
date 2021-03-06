@@ -5,9 +5,7 @@ const validateDate = async (req, res, next) => {
     const userId = req.user.id
     try {
         const day = await daily.findByDate(date, userId)
-        console.log(day)
         if (day){
-            console.log(day)
             req.dateId = day.id
             next()
         } else {

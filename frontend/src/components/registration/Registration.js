@@ -74,7 +74,6 @@ function Registration() {
     const [validationErrors, setValidationErrors] = useState({})
     const [validationErrorsCheck, setValidationErrorsCheck] = useState({})
     const [isValid, setIsValid] = useState(false)
-    const [apiErrorMessage, setApiErrorMessage] = useState('')
 
     const nextStep = () => {
         setStep(step + 1)

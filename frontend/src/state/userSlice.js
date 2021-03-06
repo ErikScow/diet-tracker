@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import apiCalls from '../api/backendCalls'
+import { calculateBmr } from '../utils/calorieCalculations';
 import { formattedDate } from '../utils/dateFormatting'
+import { updateDayCall } from './dailySlice';
 
 export const userSlice = createSlice({
     name: 'userSlice',
@@ -10,6 +12,7 @@ export const userSlice = createSlice({
         loginLoading: false,
         registerLoading: false,
         authCheckLoading: false,
+        userUpdateLoading: false,
         userInfo: {
             id: '',
             weight: '',
@@ -22,6 +25,7 @@ export const userSlice = createSlice({
         },
         apiLoginError: null,
         apiRegisterError: null,
+        apiUserUpdateError: null,
     },
     reducers: {
         authenticate: (state) => {state.authenticated = true},
@@ -47,9 +51,17 @@ export const userSlice = createSlice({
                 state.authCheckLoading =  true
             }
         },
+        updateUserUpdateLoading: (state) => {
+            if (state.userUpdateLoading) {
+                state.userUpdateLoading = false
+            } else {
+                state.userUpdateLoading =  true
+            }
+        },
         updateUserInfo: (state, action) => {state.userInfo = {...state.userInfo, ...action.payload}},
         updateApiLoginError: (state, action) => {state.apiLoginError = action.payload},
-        updateApiRegisterError: (state, action) => {state.apiRegisterError = action.payload}
+        updateApiRegisterError: (state, action) => {state.apiRegisterError = action.payload},
+        updateUserUpdateError: (state, action) => {state.apiUserUpdateError = action.payload}
     }
 })
 
@@ -58,11 +70,13 @@ export const {
     updateLoginLoading,
     updateRegisterLoading,
     updateAuthCheckLoading,
+    updateUserUpdateLoading,
     updateUserInfo, 
     authenticate, 
     deAuthenticate,
     updateApiLoginError,
     updateApiRegisterError,
+    updateUserUpdateError,
 } = userSlice.actions
 
 export const loginCall = (loginCredentials, onSuccess) => dispatch => {
@@ -125,6 +139,27 @@ export const checkTokenCall = (userId, onFailure) => dispatch => {
         })
 
     dispatch(updateAuthCheckLoading())
+}
+
+export const updateUserCall = (userId, updateInfo) => dispatch => {
+    dispatch(updateUserUpdateLoading())
+
+    apiCalls.updateUser(userId, updateInfo)
+        .then(res => {
+            console.log(res)
+            dispatch(updateUserInfo(updateInfo))
+        })
+        .catch(err => {
+            console.log(err)
+            if (err.response){
+                dispatch(updateUserUpdateError(err.response.data.message))
+            } else {
+                console.log(err)
+                dispatch(updateUserUpdateError("Network Error"))
+            }
+        })
+
+    dispatch(updateUserUpdateLoading())        
 }
 
 export default userSlice.reducer

@@ -100,10 +100,8 @@ export const getTodayCall = (userId, formattedDate, defaultDayData) => dispatch 
 }
 
 export const createDayCall = (userId, dayData) => dispatch => {
-
     apiCalls.createDay(userId, dayData)
         .then(res => {
-            console.log(res)
             dispatch(updateDailyInfo(res.data))
         })
         .catch(err => {
@@ -114,8 +112,9 @@ export const createDayCall = (userId, dayData) => dispatch => {
 export const updateDayCall = (userId, formattedDate, updateInfo) => dispatch => {
     dispatch(updateUpdateInfoLoading())
 
-    apiCalls.getToday(userId, formattedDate, updateInfo)
+    apiCalls.updateDay(userId, formattedDate, updateInfo)
         .then(res => {
+            console.log('dailyslice.js117',updateInfo)
             dispatch(updateDailyInfo(updateInfo))
         })
         .catch(err => {

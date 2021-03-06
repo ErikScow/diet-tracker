@@ -46,6 +46,7 @@ export const getCalorieEventsCall = (userId, formattedDate) => dispatch =>{
 export const addCalorieEventCall = (userId, formattedDate, newEvent) => dispatch => {
     apiCalls.addCalorieEvent(userId, formattedDate, newEvent)
         .then(res => {
+            console.log(res)
             dispatch(updateCalorieEvents([newEvent]))
         })
         .catch(err => {

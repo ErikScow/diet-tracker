@@ -43,6 +43,7 @@ authRouter.post('/login', async (req, res) => {
                     manual_mode: user.manual_mode,
                     birth_date: user.birth_date,
                     weight: user.weight,
+                    height: user.height,
                     gender: user.gender
                 }
             })
