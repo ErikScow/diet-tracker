@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { asyncUpdateUserId } from '../state/authSlice'
+import { asyncUpdateUserId } from '../state/userSlice'
 
 const axiosWithAuth = () => {
     const token = localStorage.getItem('token')

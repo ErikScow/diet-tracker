@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 
-import { checkTokenCall } from '../../state/authSlice'
+import { checkTokenCall } from '../../state/userSlice'
 
 function PrivateRoute({component: Component, ...rest}) {
     const dispatch = useDispatch()
 
-    const userId = useSelector((state) => state.authSlice.userInfo.id)
-    const authenticated = useSelector(state => state.authSlice.authenticated)
-    const authCheckLoading = useSelector(state => state.authSlice.authCheckLoading)
+    const userId = useSelector((state) => state.userSlice.userInfo.id)
+    const authenticated = useSelector(state => state.userSlice.authenticated)
+    const authCheckLoading = useSelector(state => state.userSlice.authCheckLoading)
 
     useEffect(()=> {
         dispatch(checkTokenCall(userId, () => {

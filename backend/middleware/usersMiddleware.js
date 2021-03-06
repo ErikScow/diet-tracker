@@ -1,9 +1,9 @@
 const users = require('../models/usersModel')
 
 const validateUser = (req, res, next) => {
-    const {name, email, password, manual_mode, birth_date, weight, gender} = req.body
+    const {name, email, password, manual_mode, birth_date, weight, height, gender} = req.body
 
-    if (name, email, password, manual_mode, birth_date, weight, gender){
+    if (name, email, password, manual_mode, birth_date, weight, height, gender){
         next()
     } else {
         res.status(400).json({ message: 'missing required fields' })

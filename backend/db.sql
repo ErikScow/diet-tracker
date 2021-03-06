@@ -14,6 +14,7 @@ CREATE TABLE users(
     manual_mode BOOLEAN NOT NULL,
     birth_date VARCHAR(8) NOT NULL,
     weight FLOAT NOT NULL,
+    height FLOAT NOT NULL,
     gender VARCHAR(6) NOT NULL
 );
 

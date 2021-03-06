@@ -20,6 +20,19 @@ const useStyles = makeStyles((theme) => ({
     },
     formError: {
         padding: '0 15px'
+    },
+    heightLabel: {
+        width: '30%',
+        paddingTop: '15px',
+        paddingLeft: '25px'
+    },
+    heightContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    heightField: {
+        width: '40%',
+        paddingRight: '10px'
     }
   }));
 
@@ -121,6 +134,22 @@ function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck
 
                     name='weight'
                     value={fields.weight}
+                    onChange={handleChange}
+                />
+            </Box>
+
+            
+            <Box m={1}>
+                <TextField 
+                    label='Height (inches)'
+                    variant='outlined'
+                    error={validationErrorsCheck.height}
+                    helperText={validationErrors.height}
+                    size='small'
+                    fullWidth={true}
+
+                    name='height'
+                    value={fields.height}
                     onChange={handleChange}
                 />
             </Box>

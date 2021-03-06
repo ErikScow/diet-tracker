@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import apiCalls from '../api/backendCalls'
 import { formattedDate } from '../utils/dateFormatting'
 
-export const authSlice = createSlice({
-    name: 'authSlice',
+export const userSlice = createSlice({
+    name: 'userSlice',
     initialState: {
         authenticated: false,
         loginLoading: false,
@@ -13,6 +13,7 @@ export const authSlice = createSlice({
         userInfo: {
             id: '',
             weight: '',
+            height: '',
             activity_level: '',
             desired_loss_rate: '',
             gender: '',
@@ -62,7 +63,7 @@ export const {
     deAuthenticate,
     updateApiLoginError,
     updateApiRegisterError,
-} = authSlice.actions
+} = userSlice.actions
 
 export const loginCall = (loginCredentials, onSuccess) => dispatch => {
     dispatch(updateLoginLoading())
@@ -79,7 +80,6 @@ export const loginCall = (loginCredentials, onSuccess) => dispatch => {
             onSuccess(res.data.token)
         })
         .catch( err => {
-            console.log(err)
             dispatch(deAuthenticate())
             if (err.response){
                 dispatch(updateApiLoginError(err.response.data.message))
@@ -127,4 +127,4 @@ export const checkTokenCall = (userId, onFailure) => dispatch => {
     dispatch(updateAuthCheckLoading())
 }
 
-export default authSlice.reducer
+export default userSlice.reducer

@@ -8,7 +8,7 @@ import FormOne from './FormOne'
 import FormTwo from './FormTwo'
 
 import { formatDateFromForm } from '../../utils/dateFormatting'
-import { registerCall, updateApiRegisterError } from '../../state/authSlice'
+import { registerCall, updateApiRegisterError } from '../../state/userSlice'
 
 const validationSchema = yup.object().shape({
     name: yup
@@ -36,6 +36,10 @@ const validationSchema = yup.object().shape({
         .number()
         .typeError('Must be a number')
         .required('Required'),
+    height: yup
+        .number()
+        .typeError('Must be a number')
+        .required('Required'),
     gender: yup
         .string()
         .required('Required'),
@@ -50,8 +54,8 @@ function Registration() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const apiRegisterError = useSelector(state => state.authSlice.apiRegisterError)
-    const registerLoading = useSelector(state => state.authSlice.registerLoading)
+    const apiRegisterError = useSelector(state => state.userSlice.apiRegisterError)
+    const registerLoading = useSelector(state => state.userSlice.registerLoading)
 
     const [step, setStep] = useState(1)
     const [fields, setFields] = useState({
@@ -63,6 +67,7 @@ function Registration() {
         manual_mode: false,
         birth_date: '2000-01-01',
         weight: '',
+        height: '',
         gender: ''
     })
 

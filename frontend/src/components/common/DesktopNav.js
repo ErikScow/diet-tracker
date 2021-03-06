@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Toolbar, Button } from '@material-ui/core'
 
-import { deAuthenticate } from '../../state/authSlice'
+import { deAuthenticate } from '../../state/userSlice'
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 function DesktopNav() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const loggedIn = useSelector((state) => state.authSlice.authenticated)
+    const loggedIn = useSelector((state) => state.userSlice.authenticated)
 
     const classes = useStyles()
 

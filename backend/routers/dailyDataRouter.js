@@ -47,12 +47,13 @@ dailyDataRouter.post('/', async (req, res) => {
 })
 
 dailyDataRouter.put('/:date', validateDate, async (req, res) => {
-    const changes = req.body.changes
-    const id = req.body.id
+    const changes = req.body
+    const userId = req.user.id
     
     try {
-        const updated = await dailyData.update(changes, id)
-        res.status(200).json(updated)
+        const updated = await dailyData.update(changes, userId)
+        console.log(updated)
+        res.status(200).json({message: "updated successfully"})
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: "could not update data" })

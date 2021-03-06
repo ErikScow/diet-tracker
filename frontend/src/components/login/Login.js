@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, FormHelperText, Button, Grid, Box, LinearProgress } from '@material-ui/core'
 
-import { loginCall, updateApiLoginError } from '../../state/authSlice'
+import { loginCall, updateApiLoginError } from '../../state/userSlice'
 
 import Nav from '../common/Nav'
 
@@ -30,8 +30,8 @@ function Login() {
     const history = useHistory()
     const classes = useStyles()
 
-    const apiLoginError = useSelector(state => state.authSlice.apiLoginError)
-    const loginLoading = useSelector(state => state.authSlice.loginLoading)
+    const apiLoginError = useSelector(state => state.userSlice.apiLoginError)
+    const loginLoading = useSelector(state => state.userSlice.loginLoading)
 
     const [fields, setFields] = useState({
         email: '',

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Toolbar, Button, Menu,  IconButton, Drawer } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 
-import { deAuthenticate } from '../../state/authSlice'
+import { deAuthenticate } from '../../state/userSlice'
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 function MobileNav() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const loggedIn = useSelector((state) => state.authSlice.authenticated)
+    const loggedIn = useSelector((state) => state.userSlice.authenticated)
 
     const classes = useStyles()
 

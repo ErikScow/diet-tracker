@@ -10,7 +10,7 @@ const validateDate = async (req, res, next) => {
             req.dateId = day.id
             next()
         } else {
-            res.status(400).json({ message: "date does not exist" })
+            res.status(420).json({ message: "date does not exist" })
         }
         
     } catch (error) {
