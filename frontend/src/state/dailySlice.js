@@ -6,7 +6,6 @@ import formattedDate from '../utils/dateFormatting'
 export const dailySlice = createSlice({
     name: 'dailySlice',
     initialState: {
-
         formattedDate: '',
 
         dailyInfoLoading: false,
@@ -57,13 +56,13 @@ export const dailySlice = createSlice({
     }
 })
 
-// destructure the reducer funtions listed above here to be exported
 export const {
     updateFormattedDate,
     updateDailyInfoLoading,
     updateUpdateInfoLoading,
     updateAllDailyInfoLoading,
     updateDailyInfo,
+    updateAllDailyInfo
 } = dailySlice.actions
 
 export const getAllDailyDataCall = (userId, onSuccess, onFailure) => dispatch => {
@@ -71,25 +70,26 @@ export const getAllDailyDataCall = (userId, onSuccess, onFailure) => dispatch =>
 
     apiCalls.getAllDailyData(userId)
         .then(res => {
-            dispatch(updateAllDailyInfo())
+            dispatch(updateAllDailyInfo(res.data))
         })
-        .catch(res => {
-
+        .catch(err => {
+            console.log(err)
         })
 
     dispatch(updateAllDailyInfoLoading())
 }
 
-export const getTodayCall = (userId, formattedDate) => dispatch => {
+export const getTodayCall = (userId, formattedDate, defaultDayData) => dispatch => {
     dispatch(updateDailyInfoLoading())
 
     apiCalls.getToday(userId, formattedDate)
         .then(res => {
-            dispatch(updateDailyInfo(dayData))
+            console.log(res)
+            dispatch(updateDailyInfo(res.data))
         })
         .catch(err => {
             if (err.response.status === 420){
-                dispatch(createDayCall(userId, dayData))
+                dispatch(createDayCall(userId, defaultDayData))
             } else {
                 console.log(err)
             }
@@ -99,11 +99,11 @@ export const getTodayCall = (userId, formattedDate) => dispatch => {
     dispatch(updateDailyInfoLoading())
 }
 
-export const createDayCall = (userId) => dispatch => {
-    const dayData = createFormattedDate()
+export const createDayCall = (userId, dayData) => dispatch => {
 
     apiCalls.createDay(userId, dayData)
         .then(res => {
+            console.log(res)
             dispatch(updateDailyInfo(res.data))
         })
         .catch(err => {
@@ -111,7 +111,7 @@ export const createDayCall = (userId) => dispatch => {
         })
 }
 
-export const updateDayCall = (userId, formattedDate, updateInfo) => {
+export const updateDayCall = (userId, formattedDate, updateInfo) => dispatch => {
     dispatch(updateUpdateInfoLoading())
 
     apiCalls.getToday(userId, formattedDate, updateInfo)

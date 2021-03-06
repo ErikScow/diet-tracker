@@ -3,10 +3,11 @@ const daily = require('../models/dailyModel')
 const validateDate = async (req, res, next) => {
     const date = req.params.date
     const userId = req.user.id
-
     try {
         const day = await daily.findByDate(date, userId)
+        console.log(day)
         if (day){
+            console.log(day)
             req.dateId = day.id
             next()
         } else {

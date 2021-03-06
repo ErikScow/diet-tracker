@@ -1,5 +1,5 @@
 
-const formatDateFromForm = (inputStr) => {
+export const formatDateFromForm = (inputStr) => {
     try {
         const yearStr = inputStr.slice(0, 4)
         const monthStr = inputStr.slice(5,7)
@@ -13,7 +13,7 @@ const formatDateFromForm = (inputStr) => {
     }
 }
 
-const formattedDate = () => {
+export const formattedDate = () => {
     const date = new Date()
     let year = date.getFullYear().toString()
     let month = (date.getMonth() + 1).toString()
@@ -32,7 +32,3 @@ const formattedDate = () => {
     return returnString
 }
 
-export {
-    formatDateFromForm,
-    formattedDate
-}

@@ -6,7 +6,8 @@ const findById = async (id) => {
 }
 
 const findByDate = async (day, user_id) => {
-    const dayData = await pool.query("SELECT * FROM daily_data WHERE date=$1 and user_id=$2", [day, user_id])
+    console.log(day, user_id)
+    const dayData = await pool.query("SELECT * FROM daily_data WHERE date=$1 and user_id=$2", [`${day}`, user_id])
     return dayData.rows[0]
 }
 

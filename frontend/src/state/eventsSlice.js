@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import apiCalls from '../api/backendCalls'
-import formattedDate from '../utils/dateFormatting'
+import { formattedDate } from '../utils/dateFormatting'
 
 export const eventsSlice = createSlice({
     name: 'eventsSlice',
@@ -10,7 +10,7 @@ export const eventsSlice = createSlice({
         calorieEvents: []
     },
     reducers: {
-        updateCalorieEvensLoading: (state) => {
+        updateCalorieEventsLoading: (state) => {
             if (state.calorieEventsLoading) {
                 state.calorieEventsLoading = false
             } else {
@@ -19,14 +19,50 @@ export const eventsSlice = createSlice({
         },
         updateCalorieEvents: (state, action) => {
             state.calorie_events = [...state.calorieEvents, ...action.payload]
+        },
+        clearEvents: (state) => {
+            state.calorie_events = []
         }
     }
 })
 
 // destructure the reducer funtions listed above here to be exported
 export const {
+    updateCalorieEventsLoading, 
+    updateCalorieEvents,
+    clearEvents
 } = eventsSlice.actions
 
+export const getCalorieEventsCall = (userId, formattedDate) => dispatch =>{
+    apiCalls.getCalorieEvents(userId, formattedDate)
+        .then(res => {
+            dispatch(updateCalorieEvents(res.data))
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const addCalorieEventCall = (userId, formattedDate, newEvent) => dispatch => {
+    apiCalls.addCalorieEvent(userId, formattedDate, newEvent)
+        .then(res => {
+            dispatch(updateCalorieEvents([newEvent]))
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const deleteCalorieEventCall = (userId, formattedDate, eventId) => dispatch => {
+    apiCalls.deleteCalorieEvent(userId, formattedDate, eventId)
+        .then(res => {
+            dispatch(clearEvents())
+            dispatch(getCalorieEventsCall(userId, formattedDate))
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 
 

@@ -7,7 +7,7 @@ export const calculateBmr = (gender, weight, height, age) => {
     }
 }
 
-export const calculateSuggestion = (bmr, dailyBurned, desiredLossPerWeek) => {
+export const calculateSuggestion = (bmr, dailyBurned, desiredLossPerWeekPounds) => {
     const desiredLossPerWeekCalories = desiredLossPerWeekPounds * 3500
     const dailyCalorieDeficit = desiredLossPerWeekCalories / 7
 
