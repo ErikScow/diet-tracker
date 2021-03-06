@@ -80,12 +80,12 @@ export const getAllDailyDataCall = (userId, onSuccess, onFailure) => dispatch =>
     dispatch(updateAllDailyInfoLoading())
 }
 
-export const getTodayCall = (userId, formattedDate, dayData) => dispatch => {
+export const getTodayCall = (userId, formattedDate) => dispatch => {
     dispatch(updateDailyInfoLoading())
 
     apiCalls.getToday(userId, formattedDate)
         .then(res => {
-            dispatch(updateDailyInfo(updateInfo))
+            dispatch(updateDailyInfo(dayData))
         })
         .catch(err => {
             if (err.response.status === 420){
@@ -99,10 +99,12 @@ export const getTodayCall = (userId, formattedDate, dayData) => dispatch => {
     dispatch(updateDailyInfoLoading())
 }
 
-export const createDayCall = (userId, dayData) => dispatch => {
+export const createDayCall = (userId) => dispatch => {
+    const dayData = createFormattedDate()
+
     apiCalls.createDay(userId, dayData)
         .then(res => {
-            console.log(res)
+            dispatch(updateDailyInfo(res.data))
         })
         .catch(err => {
             console.log(err)
@@ -117,7 +119,7 @@ export const updateDayCall = (userId, formattedDate, updateInfo) => {
             dispatch(updateDailyInfo(updateInfo))
         })
         .catch(err => {
-            dispatch()
+            console.log(err)
         })
 
     dispatch(updateUpdateInfoLoading())
