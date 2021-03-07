@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import apiCalls from '../api/backendCalls'
 import formattedDate from '../utils/dateFormatting'
 
+import { getCalorieEventsCall } from './eventsSlice'
+
 export const dailySlice = createSlice({
     name: 'dailySlice',
     initialState: {
@@ -85,10 +87,11 @@ export const getTodayCall = (userId, formattedDate, defaultDayData) => dispatch 
     apiCalls.getToday(userId, formattedDate)
         .then(res => {
             dispatch(updateDailyInfo(res.data))
+            dispatch(getCalorieEventsCall(userId, formattedDate))
         })
         .catch(err => {
             if (err.response.status === 420){
-                dispatch(createDayCall(userId, defaultDayData))
+                dispatch(createDayCall(userId, formattedDate, defaultDayData))
             } else {
                 console.log(err)
             }
@@ -98,10 +101,11 @@ export const getTodayCall = (userId, formattedDate, defaultDayData) => dispatch 
     dispatch(updateDailyInfoLoading())
 }
 
-export const createDayCall = (userId, dayData) => dispatch => {
+export const createDayCall = (userId, formattedDate, dayData) => dispatch => {
     apiCalls.createDay(userId, dayData)
         .then(res => {
             dispatch(updateDailyInfo(res.data))
+            dispatch(getCalorieEventsCall(userId, formattedDate))
         })
         .catch(err => {
             console.log(err)

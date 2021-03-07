@@ -28,7 +28,6 @@ function Dashboard(props) {
         dispatch(updateFormattedDate(date))
         //the default day object is passed to redux to be used in case no day has yet been created
         dispatch(getTodayCall(userId, date, defaultDay))
-        dispatch(getCalorieEventsCall(userId, date))
     },[])
 
     const createDayObject = (date) => {

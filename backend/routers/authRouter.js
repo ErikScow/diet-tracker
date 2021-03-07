@@ -38,6 +38,8 @@ authRouter.post('/login', async (req, res) => {
                 token: token,
                 userInfo: {
                     id: user.id,
+                    name: user.name,
+                    email: user.email,
                     activity_level: user.activity_level,
                     desired_loss_rate: user.desired_loss_rate,
                     manual_mode: user.manual_mode,

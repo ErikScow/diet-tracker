@@ -15,6 +15,8 @@ export const userSlice = createSlice({
         userUpdateLoading: false,
         userInfo: {
             id: '',
+            name: '',
+            email: '',
             weight: '',
             height: '',
             activity_level: '',
