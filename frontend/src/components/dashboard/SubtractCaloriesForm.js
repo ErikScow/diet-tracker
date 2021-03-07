@@ -9,9 +9,13 @@ import { Typography,TextField, FormHelperText, Button, Grid, Box, LinearProgress
 import { updateUserCall, updateUserUpdateError } from '../../state/userSlice'
 import { calculateBmr, calculateSuggestion } from '../../utils/calorieCalculations';
 import { updateDayCall } from '../../state/dailySlice';
+import { addCalorieEventCall } from '../../state/eventsSlice'
 
 const validationSchema = yup.object().shape({
-    weight: yup
+    note: yup
+        .string()
+        ,
+    magnitude: yup
         .number()
         .typeError('Must be a number')
         .required('Required'),
@@ -22,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 15px'
     },
     button: {
-        height: '50%',
+        height: '50px',
         marginTop: '25px'
     },
     inputField: {
@@ -46,9 +50,12 @@ function WeightForm() {
     const userId = useSelector(state => state.userSlice.userInfo.id)
     const userInfo = useSelector(state => state.userSlice.userInfo)
     const date = useSelector(state => state.dailySlice.formattedDate)
+    const calorie_total = useSelector(state => state.dailySlice.dailyInfo.calorie_total)
 
     const [fields, setFields] = useState({
-        weight: ''
+        magnitude: '',
+        note: '',
+        positive: false
     })
     const [validationErrors, setValidationErrors] = useState({})
     const [validationErrorsCheck, setValidationErrorsCheck] = useState({})
@@ -99,14 +106,11 @@ function WeightForm() {
                 ...validationErrors,
                 incomplete: null
             })
-            const bmr = calculateBmr(userInfo.gender, fields.weight, userInfo.height, userInfo.age)
-            const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, userInfo.desired_loss_rate)
+            const newTotal = Number(calorie_total) - Number(fields.magnitude)
             const newDateInfo = {
-                weight: fields.weight,
-                bmr: bmr,
-                calorie_suggestion: calorieSuggestion
+                calorie_total: newTotal
             }
-            dispatch(updateUserCall(userId, fields))
+            dispatch(addCalorieEventCall(userId, date, fields))
             dispatch(updateDayCall(userId, date, newDateInfo))
         }
                     
@@ -124,38 +128,39 @@ function WeightForm() {
                 <Grid item xs={1} sm ={2} md={4} lg={4}></Grid>
                 <Grid item container direction='column' xs={10} sm={8} md={4} lg={4}>
                     <Box m={1}>
-                        <Typography className={classes.sectionLabel}>Subtract Calories</Typography>
+                        <Typography className={classes.sectionLabel}>Add Excercise (subtract calories)</Typography>
                         <Grid container direction='row' alignItems="stretch">
 
                             <Grid item container xs={8} sm={8} md={7} lg={6} >
                                     <TextField
-                                        label='Weight (lbs)'
+                                        label='Note'
                                         variant='outlined'
-                                        error={validationErrorsCheck.weight}
+                                        error={validationErrorsCheck.note}
                                         size='small'
                                         fullWidth={true}
 
                                         className={classes.topInputField}
 
-                                        name='weight'
-                                        value={fields.weight}
+                                        name='note'
+                                        value={fields.note}
                                         onChange={handleChange}
                                     />
                                     <TextField
-                                        label='Weight (lbs)'
+                                        label='Calories'
                                         variant='outlined'
-                                        error={validationErrorsCheck.weight}
+                                        error={validationErrorsCheck.magnitude}
+                                        helperText={validationErrors.magnitude}
                                         size='small'
                                         fullWidth={true}
 
-                                        name='weight'
-                                        value={fields.weight}
+                                        name='magnitude'
+                                        value={fields.magnitude}
                                         onChange={handleChange}
                                     />
                             </Grid>
                             <Grid item xs={1} sm={1} md={3} lg={4}></Grid>
                             <Grid item container xs={3} sm={3} md={2} lg={2}>
-                                <Button className={classes.button} variant='outlined' type='button' onClick={handleSubmit}>Update</Button>
+                                <Button className={classes.button} variant='outlined' type='button' onClick={handleSubmit}>Add</Button>
                             </Grid>
                         </Grid>
                     </Box>

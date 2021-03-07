@@ -1,10 +1,12 @@
 export const calculateBmr = (gender, weight, height, age) => {
+    let bmr
     if (gender === 'male'){
-        return (66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age))
+        bmr = (66.47 + (6.24 * weight) + (12.7 * height) - (6.755 * age))
     } 
     if (gender === 'female'){
-        return (665.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age))
+        bmr =  (665.1 + (4.35 * weight) + (4.7 * height) - (4.7 * age))
     }
+    return Math.floor(bmr)
 }
 
 export const calculateSuggestion = (bmr, dailyBurned, desiredLossPerWeekPounds) => {
@@ -13,5 +15,5 @@ export const calculateSuggestion = (bmr, dailyBurned, desiredLossPerWeekPounds) 
 
     const calorieSuggestion = (bmr + dailyBurned - dailyCalorieDeficit)
 
-    return calorieSuggestion
+    return Math.floor(calorieSuggestion)
 }

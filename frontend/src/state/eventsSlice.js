@@ -18,7 +18,10 @@ export const eventsSlice = createSlice({
             }
         },
         updateCalorieEvents: (state, action) => {
-            state.calorie_events = [...state.calorieEvents, ...action.payload]
+            state.calorieEvents = action.payload
+        },
+        addCalorieEvent: (state, action) => {
+            state.calorieEvents = [...state.calorieEvents, ...action.payload]
         },
         clearEvents: (state) => {
             state.calorie_events = []
@@ -30,6 +33,7 @@ export const eventsSlice = createSlice({
 export const {
     updateCalorieEventsLoading, 
     updateCalorieEvents,
+    addCalorieEvent,
     clearEvents
 } = eventsSlice.actions
 
@@ -46,8 +50,7 @@ export const getCalorieEventsCall = (userId, formattedDate) => dispatch =>{
 export const addCalorieEventCall = (userId, formattedDate, newEvent) => dispatch => {
     apiCalls.addCalorieEvent(userId, formattedDate, newEvent)
         .then(res => {
-            console.log(res)
-            dispatch(updateCalorieEvents([newEvent]))
+            dispatch(getCalorieEventsCall(userId, formattedDate))
         })
         .catch(err => {
             console.log(err)

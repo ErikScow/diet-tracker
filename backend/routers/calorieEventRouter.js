@@ -20,6 +20,7 @@ calorieEventRouter.get('/', async (req, res) => {
 calorieEventRouter.post('/', async (req, res) => {
     const dayId = req.dateId
     const eventInfo = req.body
+    eventInfo.day_id = dayId
 
     try {
         const newEvent = await events.add(eventInfo)

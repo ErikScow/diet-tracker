@@ -28,7 +28,8 @@ const update = async (newInfo, id) => {
     const updatedDay = await pool.query(
         "UPDATE daily_data SET date=$1, calorie_total=$2, weight=$3, bmr=$4, calorie_suggestion=$5, positive=$6, user_id=$7 WHERE id=$8 RETURNING *",
         [updated.date, updated.calorie_total, updated.weight, updated.bmr, updated.calorie_suggestion, updated.positive, updated.user_id, id])
-    return updatedDay
+
+    return updatedDay.rows[0]
 }
 
 const remove = async (id) => {

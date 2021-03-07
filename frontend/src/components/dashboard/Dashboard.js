@@ -44,9 +44,6 @@ function Dashboard(props) {
         }
     }
 
-    const addEvent = () => {
-    }
-
     return (
         <div>
             <Nav />

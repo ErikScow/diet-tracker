@@ -94,7 +94,7 @@ function WeightForm() {
             const bmr = calculateBmr(userInfo.gender, fields.weight, userInfo.height, userInfo.age)
             const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, userInfo.desired_loss_rate)
             const newDateInfo = {
-                weight: fields.weight,
+                weight: Number(fields.weight),
                 bmr: bmr,
                 calorie_suggestion: calorieSuggestion
             }

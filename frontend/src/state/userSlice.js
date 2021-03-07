@@ -146,7 +146,6 @@ export const updateUserCall = (userId, updateInfo) => dispatch => {
 
     apiCalls.updateUser(userId, updateInfo)
         .then(res => {
-            console.log(res)
             dispatch(updateUserInfo(updateInfo))
         })
         .catch(err => {
