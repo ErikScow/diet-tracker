@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-
+import { Typography, Divider, Grid } from '@material-ui/core';
 import { formattedDate } from '../../utils/dateFormatting'
 import { calculateBmr, calculateSuggestion } from '../../utils/calorieCalculations'
 
@@ -11,6 +11,8 @@ import EventsList from './EventsList'
 import { getTodayCall, updateDayCall, updateFormattedDate } from '../../state/dailySlice';
 import { getCalorieEventsCall } from '../../state/eventsSlice'
 import { updateUserCall } from '../../state/userSlice';
+import AddCaloriesForm from './AddCaloriesForm';
+import SubtractCaloriesForm from './SubtractCaloriesForm'
 
 function Dashboard(props) {
     const dispatch = useDispatch()
@@ -46,9 +48,19 @@ function Dashboard(props) {
     return (
         <div>
             <Nav />
-            <CalorieMeter />
-            <EventsForm />
-            <EventsList />
+            <Grid container>
+                <CalorieMeter />
+                <Grid container direction='row' xs={12} md={6}>
+                    <Grid item container direction='column' xs={10} sm={8} md={4} lg={4}></Grid>
+                        <AddCaloriesForm />
+                        <SubtractCaloriesForm />
+                        <EventsList />
+                </Grid>
+                
+            </Grid>
+                    
+                
+            
         </div>
     );
 }

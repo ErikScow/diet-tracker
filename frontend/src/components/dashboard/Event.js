@@ -9,9 +9,18 @@ import { deleteCalorieEventCall } from '../../state/eventsSlice';
 import { updateDayCall } from '../../state/dailySlice';
 
 const useStyles = makeStyles((theme) => ({
-    text: {
-        color: 'red'
+    red: {
+        color: 'red',
+    },
+    button: {
+        padding: '0',
+
+    },
+    redText: {
+        color: 'red',
+        paddingLeft: '5px'
     }
+
 }))
 
 function Event(props) {
@@ -43,11 +52,24 @@ function Event(props) {
 
     return (
         <div>
-            <Grid container direction='row'>
-                <Typography type='p' className={classes.text}>{props.magnitude}</Typography>
-                <Typography type='p' className={classes.text}>{props.note}</Typography>
-                <IconButton onClick={deleteEvent}><ClearIcon className={classes.text}/></IconButton>
-            </Grid>
+            
+                
+                <Grid item container direction='row' >
+                    <Grid item xs={4}>
+                       {props.positive ? <Typography type='p' className={classes.redText}>+ {props.magnitude} Cal</Typography> 
+                        : <Typography type='p' className={classes.redText}>- {props.magnitude} Cal</Typography>} 
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={2}>
+                        <Typography type='p' className={classes.redText}>{props.note}</Typography>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}>
+                       <IconButton onClick={deleteEvent} className={classes.button}><ClearIcon className={classes.red}/></IconButton> 
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                </Grid>
+            
             
         </div>
     );

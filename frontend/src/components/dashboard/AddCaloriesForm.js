@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         height: '50px',
-        marginTop: '25px'
+        marginTop: '25px',
     },
     inputField: {
         margin: '15px',
@@ -125,10 +125,9 @@ function AddCaloriesForm() {
     }, [fields])
 
     return (
-        <div>
             <Grid container direction='row'>
-                <Grid item xs={1} sm ={2} md={4} lg={4}></Grid>
-                <Grid item container direction='column' xs={10} sm={8} md={4} lg={4}>
+                <Grid item xs={1} sm ={2} md={0} lg={0}></Grid>
+                <Grid item container direction='column' xs={10} sm={8} md={12} lg={12}>
                     <Box m={1}>
                         <Typography className={classes.sectionLabel}>Add Meal (add calories)</Typography>
                         <Grid container direction='row' alignItems="stretch">
@@ -160,10 +159,11 @@ function AddCaloriesForm() {
                                         onChange={handleChange}
                                     />
                             </Grid>
-                            <Grid item xs={1} sm={1} md={3} lg={4}></Grid>
-                            <Grid item container xs={3} sm={3} md={2} lg={2}>
+                            <Grid item xs={1} sm={2} md={2} lg={3}></Grid>
+                            <Grid item container xs={3} sm={2} md={2} lg={2}>
                                 <Button className={classes.button} variant='outlined' type='button' onClick={handleSubmit}>Add</Button>
                             </Grid>
+                            <Grid item xs={0} sm={0} md={1} lg={1}></Grid>
                         </Grid>
                     </Box>
                     
@@ -172,9 +172,8 @@ function AddCaloriesForm() {
                     
                                 
                 </Grid>
-                <Grid item xs={1} sm={2} md={4} lg={4}></Grid>
+                <Grid item xs={1} sm={2} md={0} lg={0}></Grid>
             </Grid>
-        </div>
     
         
     );

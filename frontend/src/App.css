@@ -37,3 +37,18 @@
     transform: translateY(0px)
   }
 }
+
+
+.flex-media-query{
+  display: flex;
+  flex-direction: column;
+}
+
+@media(min-width: 965px){
+  .flex-media-query{
+    flex-direction: row;
+  }
+  .calorie-meter{
+    width: 50vw;
+  }
+}
