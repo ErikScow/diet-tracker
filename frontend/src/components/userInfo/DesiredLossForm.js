@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
       formError: {
           padding: '0 15px'
       },
+      formUpdated: {
+          padding: '0 10px',
+          color: 'limegreen'
+      }
   }));
 
 function DesiredLossForm() {
@@ -50,7 +54,10 @@ function DesiredLossForm() {
     })
     const [validationErrors, setValidationErrors] = useState({})
     const [validationErrorsCheck, setValidationErrorsCheck] = useState({})
+    const [incomplete, setIncomplete] = useState(null)
+    const [invalidDesired, setInvalidDesired] = useState(null)
     const [isValid, setIsValid] = useState(false)
+    const [updatedMessage, setUpdatedMessage] = useState(null)
 
     const handleChange = (e) => {
         e.persist()
@@ -82,30 +89,22 @@ function DesiredLossForm() {
             ...fields,
             [e.target.name]: e.target.value,
         })
+        setUpdatedMessage(null)
     }
 
     const handleSubmit = e => {
         e.preventDefault()
 
-        const bmr = calculateBmr(userInfo.gender, userInfo.weight, userInfo.height, userInfo.age)
-        const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, fields.desired_loss_rate)
+        
 
-        if(calorieSuggestion < 1000){
-            setValidationErrors({
-                ...validationErrors,
-                invalidDesired: "Your desired loss rate is too high for your weight and activity level and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please select a lower rate to have a healthier calorie suggestion."
-            })
+        if(!isValid){
+            setIncomplete('Please complete all of the required fields to submit!')
         } else {
-            if (!isValid){
-                setValidationErrors({
-                    ...validationErrors,
-                    incomplete: "Please complete all of the required fields to submit!"
-                })
+            const bmr = calculateBmr(userInfo.gender, userInfo.weight, userInfo.height, userInfo.age)
+            const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, fields.desired_loss_rate)
+            if (calorieSuggestion < 1000){
+                setInvalidDesired("Your desired loss rate is too high for your weight and activity level and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please select a lower rate to have a healthier calorie suggestion.")
             } else {
-                setValidationErrors({
-                    ...validationErrors,
-                    incomplete: null
-                })
                 const newDateInfo = {
                     desired_loss_rate: fields.desired_loss_rate,
                     bmr: bmr,
@@ -116,11 +115,10 @@ function DesiredLossForm() {
                 setFields({
                     desired_loss_rate: ''
                 })
+                setUpdatedMessage('Updated!')
+                setInvalidDesired(null)
             }
-            setValidationErrors({
-                ...validationErrors,
-                invalidDesired: null
-            })
+            setIncomplete(null)
         }
 
         
@@ -171,13 +169,14 @@ function DesiredLossForm() {
                                 <Grid item xs={1} sm={1} md={3} lg={4}></Grid>
                                 <Grid item container xs={3} sm={3} md={2} lg={2}>
                                     <Button variant='outlined' type='button' onClick={handleSubmit}>Update</Button>
+                                    {updatedMessage ? <FormHelperText className={classes.formUpdated}>{updatedMessage}</FormHelperText> : null}
                                 </Grid>
                             </Grid>
                         </Box>
                     
                     {validationErrors.desired_loss_rate ? (<FormHelperText className={classes.formError} error>{validationErrors.desired_loss_rate}</FormHelperText>) : null}
-                    {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
-                    {validationErrors.invalidDesired ? (<FormHelperText className={classes.formError} error>{validationErrors.invalidDesired}</FormHelperText>) : null}
+                    {incomplete ? (<FormHelperText className={classes.formError} error>{incomplete}</FormHelperText>) : null}
+                    {invalidDesired ? (<FormHelperText className={classes.formError} error>{invalidDesired}</FormHelperText>) : null}
                     
                                 
                 </Grid>

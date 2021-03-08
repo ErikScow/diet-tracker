@@ -46,6 +46,7 @@ function DesktopNav() {
                                 <Link to='/dashboard' className={classes.link}><Button>Dashboard</Button></Link>
                                 <Link to='/userinfo' className={classes.link}><Button>User Info</Button></Link>
                                 <Link to='/historical' className={classes.link}><Button>Historical</Button></Link>
+                                <Link to='/about' className={classes.link}><Button>About</Button></Link>
                                 <Button onClick={logOut} className={classes.logoutButton}>Logout</Button>
                           
                         </div>
@@ -60,6 +61,7 @@ function DesktopNav() {
                     Diet Journal
                 </Typography>
                 <div className={classes.linksContainer}>
+                    <Link to='/about' className={classes.link}><Button>About</Button></Link>
                     <Link to='/login' className={classes.link}><Button>Login</Button></Link>
                     <Link to='/register' className={classes.link}><Button>Sign Up</Button></Link>
                 </div>

@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
         width: '200px'
     },
     formUpdated: {
-        padding: '0 10px'
+        padding: '0 10px',
+        color: 'limegreen'
     }
   }));
 
@@ -46,6 +47,8 @@ function WeightForm() {
         weight: ''
     })
     const [validationErrors, setValidationErrors] = useState({})
+    const [incomplete, setIncomplete] = useState(null)
+    const [invalidDesired, setInvalidDesired] = useState(null)
     const [validationErrorsCheck, setValidationErrorsCheck] = useState({})
     const [isValid, setIsValid] = useState(false)
     const [updatedMessage, setUpdatedMessage] = useState(null)
@@ -86,25 +89,15 @@ function WeightForm() {
     const handleSubmit = e => {
         e.preventDefault()
 
-        const bmr = calculateBmr(userInfo.gender, fields.weight, userInfo.height, userInfo.age)
-        const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, userInfo.desired_loss_rate)
-
-        if (calorieSuggestion < 1000) {
-            setValidationErrors({
-                ...validationErrors,
-                invalidDesired: 'Your desired loss rate is too high for this weight and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please change your desired loss rate to a lower rate to update your weight.'
-            })
+        if(!isValid){
+            setIncomplete("Please complete all of the required fields to submit!")
         } else {
-            if (!isValid){
-                setValidationErrors({
-                    ...validationErrors,
-                    incomplete: "Please complete all of the required fields to submit!"
-                })
+            
+            const bmr = calculateBmr(userInfo.gender, fields.weight, userInfo.height, userInfo.age)
+            const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, userInfo.desired_loss_rate)
+            if (calorieSuggestion < 1000){
+                setInvalidDesired('Your desired loss rate is too high for this weight and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please change your desired loss rate to a lower rate to update your weight.')
             } else {
-                setValidationErrors({
-                    ...validationErrors,
-                    incomplete: null
-                })
                 const newDateInfo = {
                     weight: Number(fields.weight),
                     bmr: bmr,
@@ -115,14 +108,13 @@ function WeightForm() {
                 setFields({
                     weight: ''
                 })
-                setUpdatedMessage('Updated!')
+                setUpdatedMessage('Updated!') 
+                setInvalidDesired(null)
             }
-            setValidationErrors({
-                ...validationErrors,
-                invalidDesired: null
-            })
+            
+            setIncomplete(null)
+            
         }
-       
     }
 
     useEffect(() => {
@@ -163,9 +155,8 @@ function WeightForm() {
                     </Box>
                     
                     {validationErrors.weight ? (<FormHelperText className={classes.formError} error>{validationErrors.weight}</FormHelperText>) : null}
-                    {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
-                    
-                    {validationErrors.invalidDesired ? (<FormHelperText className={classes.formError} error>{validationErrors.invalidDesired}</FormHelperText>) : null}
+                    {incomplete ? (<FormHelperText className={classes.formError} error>{incomplete}</FormHelperText>) : null}
+                    {invalidDesired ? (<FormHelperText className={classes.formError} error>{invalidDesired}</FormHelperText>) : null}
                                 
                 </Grid>
                 <Grid item xs={1} sm={2} md={4} lg={4}></Grid>
