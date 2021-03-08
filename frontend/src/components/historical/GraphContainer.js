@@ -8,16 +8,24 @@ function GraphContainer({data}) {
 
 
     useEffect(() => {
-        const setResponsiveness = () => {
-          return window.innerWidth < 600
-            ? setUseMobile(true)
-            : setUseMobile(false)
-        };
-    
-        setResponsiveness();
-    
-        window.addEventListener("resize", () => setResponsiveness());
-      }, []);
+        let mounted = true
+        if (mounted){
+          const setResponsiveness = () => {
+            return window.innerWidth < 900
+              ? setUseMobile(true)
+              : setUseMobile(false)
+          };
+      
+          setResponsiveness();
+      
+          window.addEventListener("resize", () => setResponsiveness());
+        }
+  
+        return function cleanup() {
+          mounted = false
+        }
+          
+        }, []);
 
     if (useMobile){
         return <MobileGraph data={data}/>

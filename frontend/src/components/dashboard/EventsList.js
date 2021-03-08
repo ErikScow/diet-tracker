@@ -31,7 +31,7 @@ function EventsList(props) {
     return (
         
             <Grid container direction='row'>
-                <Grid item xs={1} sm ={2} md={0} lg={0}></Grid>
+                <Grid item xs={1} sm ={2} ></Grid>
                     <Grid item container direction='column' xs={10} sm={8} md={12} lg={12}>
                         <Typography type='h3' className={classes.sectionLabel}>Calorie Events</Typography>
                         {allEvents.map(eventObject => {
@@ -44,7 +44,7 @@ function EventsList(props) {
                             />
                         })}
                     </Grid>
-                <Grid item xs={1} sm ={2} md={0} lg={0}></Grid>
+                <Grid item xs={1} sm ={2}></Grid>
             </Grid>
         
     );

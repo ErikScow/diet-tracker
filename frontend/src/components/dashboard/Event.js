@@ -66,7 +66,7 @@ function Event(props) {
                     <Grid item xs={1}>
                        <IconButton onClick={deleteEvent} className={classes.button}><ClearIcon className={classes.red}/></IconButton> 
                     </Grid>
-                    <Grid item xs={0} md={1}></Grid>
+                    <Grid item md={1}></Grid>
                 </Grid>
             
     );

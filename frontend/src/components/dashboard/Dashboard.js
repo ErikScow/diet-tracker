@@ -50,7 +50,7 @@ function Dashboard(props) {
             <Nav />
             <Grid container>
                 <CalorieMeter />
-                <Grid container direction='row' xs={12} md={6}>
+                <Grid item container direction='row' xs={12} md={6}>
                     <Grid item container direction='column' xs={10} sm={8} md={4} lg={4}></Grid>
                         <AddCaloriesForm />
                         <SubtractCaloriesForm />

@@ -8,6 +8,8 @@ function Nav() {
 
 
     useEffect(() => {
+      let mounted = true
+      if (mounted){
         const setResponsiveness = () => {
           return window.innerWidth < 900
             ? setUseMobile(true)
@@ -17,6 +19,12 @@ function Nav() {
         setResponsiveness();
     
         window.addEventListener("resize", () => setResponsiveness());
+      }
+
+      return function cleanup() {
+        mounted = false
+      }
+        
       }, []);
 
     if (useMobile){
