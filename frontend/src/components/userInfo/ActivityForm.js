@@ -89,27 +89,43 @@ function ActivityForm() {
     const handleSubmit = e => {
         e.preventDefault()
 
-        if (!isValid){
+        const bmr = calculateBmr(userInfo.gender, userInfo.weight, userInfo.height, userInfo.age)
+        const calorieSuggestion = calculateSuggestion(bmr, fields.activity_level, userInfo.desired_loss_rate)
+
+        if (calorieSuggestion < 1000){
             setValidationErrors({
                 ...validationErrors,
-                incomplete: "Please complete all of the required fields to submit!"
+                invalidDesired: 'Your desired loss rate is too high for this activity level and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please change your desired loss rate to a lower rate to update your activity level.'
             })
         } else {
+            
+            if (!isValid){
+                setValidationErrors({
+                    ...validationErrors,
+                    incomplete: "Please complete all of the required fields to submit!"
+                })
+            } else {
+                setValidationErrors({
+                    ...validationErrors,
+                    incomplete: null
+                })
+                
+                const newDateInfo = {
+                    activity_level: fields.activity_level,
+                    bmr: bmr,
+                    calorie_suggestion: calorieSuggestion
+                }
+                dispatch(updateUserCall(userId, fields))
+                dispatch(updateDayCall(userId, date, newDateInfo))
+                setFields({
+                    activity_level: ''
+                })
+            }
             setValidationErrors({
                 ...validationErrors,
-                incomplete: null
+                invalidDesired: null
             })
-            const bmr = calculateBmr(userInfo.gender, userInfo.weight, userInfo.height, userInfo.age)
-            const calorieSuggestion = calculateSuggestion(bmr, fields.activity_level, userInfo.desired_loss_rate)
-            const newDateInfo = {
-                activity_level: fields.activity_level,
-                bmr: bmr,
-                calorie_suggestion: calorieSuggestion
-            }
-            dispatch(updateUserCall(userId, fields))
-            dispatch(updateDayCall(userId, date, newDateInfo))
-        }
-                    
+        }            
     }
 
     useEffect(() => {
@@ -161,6 +177,7 @@ function ActivityForm() {
 
                     {validationErrors.activity_level ? (<FormHelperText className={classes.formError} error>{validationErrors.activity_level}</FormHelperText>) : null}
                     {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
+                    {validationErrors.invalidDesired ? (<FormHelperText className={classes.formError} error>{validationErrors.invalidDesired}</FormHelperText>) : null}
                     
                                 
                 </Grid>

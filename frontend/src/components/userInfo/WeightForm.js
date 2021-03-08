@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     },
     inputField: {
         width: '200px'
+    },
+    formUpdated: {
+        padding: '0 10px'
     }
   }));
 
@@ -45,6 +48,7 @@ function WeightForm() {
     const [validationErrors, setValidationErrors] = useState({})
     const [validationErrorsCheck, setValidationErrorsCheck] = useState({})
     const [isValid, setIsValid] = useState(false)
+    const [updatedMessage, setUpdatedMessage] = useState(null)
 
     const handleChange = (e) => {
         e.persist()
@@ -76,32 +80,49 @@ function WeightForm() {
             ...fields,
             [e.target.name]: e.target.value,
         })
+        setUpdatedMessage(null)
     }
 
     const handleSubmit = e => {
         e.preventDefault()
 
-        if (!isValid){
+        const bmr = calculateBmr(userInfo.gender, fields.weight, userInfo.height, userInfo.age)
+        const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, userInfo.desired_loss_rate)
+
+        if (calorieSuggestion < 1000) {
             setValidationErrors({
                 ...validationErrors,
-                incomplete: "Please complete all of the required fields to submit!"
+                invalidDesired: 'Your desired loss rate is too high for this weight and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please change your desired loss rate to a lower rate to update your weight.'
             })
         } else {
+            if (!isValid){
+                setValidationErrors({
+                    ...validationErrors,
+                    incomplete: "Please complete all of the required fields to submit!"
+                })
+            } else {
+                setValidationErrors({
+                    ...validationErrors,
+                    incomplete: null
+                })
+                const newDateInfo = {
+                    weight: Number(fields.weight),
+                    bmr: bmr,
+                    calorie_suggestion: calorieSuggestion
+                }
+                dispatch(updateUserCall(userId, fields))
+                dispatch(updateDayCall(userId, date, newDateInfo))
+                setFields({
+                    weight: ''
+                })
+                setUpdatedMessage('Updated!')
+            }
             setValidationErrors({
                 ...validationErrors,
-                incomplete: null
+                invalidDesired: null
             })
-            const bmr = calculateBmr(userInfo.gender, fields.weight, userInfo.height, userInfo.age)
-            const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, userInfo.desired_loss_rate)
-            const newDateInfo = {
-                weight: Number(fields.weight),
-                bmr: bmr,
-                calorie_suggestion: calorieSuggestion
-            }
-            dispatch(updateUserCall(userId, fields))
-            dispatch(updateDayCall(userId, date, newDateInfo))
         }
-                    
+       
     }
 
     useEffect(() => {
@@ -136,6 +157,7 @@ function WeightForm() {
                             <Grid item xs={1} sm={1} md={3} lg={4}></Grid>
                             <Grid item container xs={3} sm={3} md={2} lg={2}>
                                 <Button variant='outlined' type='button' onClick={handleSubmit}>Update</Button>
+                                {updatedMessage ? <FormHelperText className={classes.formUpdated}>{updatedMessage}</FormHelperText> : null}
                             </Grid>
                         </Grid>
                     </Box>
@@ -143,6 +165,7 @@ function WeightForm() {
                     {validationErrors.weight ? (<FormHelperText className={classes.formError} error>{validationErrors.weight}</FormHelperText>) : null}
                     {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
                     
+                    {validationErrors.invalidDesired ? (<FormHelperText className={classes.formError} error>{validationErrors.invalidDesired}</FormHelperText>) : null}
                                 
                 </Grid>
                 <Grid item xs={1} sm={2} md={4} lg={4}></Grid>

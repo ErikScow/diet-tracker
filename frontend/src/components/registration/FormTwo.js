@@ -162,6 +162,7 @@ function FormTwo({ fields, handleChange, validationErrors, validationErrorsCheck
             </Box>
 
             {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
+            {validationErrors.invalidDesired ? (<FormHelperText className={classes.formError} error>{validationErrors.invalidDesired}</FormHelperText>) : null}
             {apiErrorMessage ? (<FormHelperText className={classes.formError} error>{apiErrorMessage}</FormHelperText>) : null}
             {registerLoading ? <LinearProgress /> : null}
             <Box m={1}>

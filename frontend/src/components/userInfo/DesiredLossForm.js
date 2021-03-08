@@ -87,26 +87,43 @@ function DesiredLossForm() {
     const handleSubmit = e => {
         e.preventDefault()
 
-        if (!isValid){
+        const bmr = calculateBmr(userInfo.gender, userInfo.weight, userInfo.height, userInfo.age)
+        const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, fields.desired_loss_rate)
+
+        if(calorieSuggestion < 1000){
             setValidationErrors({
                 ...validationErrors,
-                incomplete: "Please complete all of the required fields to submit!"
+                invalidDesired: "Your desired loss rate is too high for your weight and activity level and will result in a calorie suggestion below 1000 calories per day, which is considered unhealthy. Please select a lower rate to have a healthier calorie suggestion."
             })
         } else {
+            if (!isValid){
+                setValidationErrors({
+                    ...validationErrors,
+                    incomplete: "Please complete all of the required fields to submit!"
+                })
+            } else {
+                setValidationErrors({
+                    ...validationErrors,
+                    incomplete: null
+                })
+                const newDateInfo = {
+                    desired_loss_rate: fields.desired_loss_rate,
+                    bmr: bmr,
+                    calorie_suggestion: calorieSuggestion
+                }
+                dispatch(updateUserCall(userId, fields))
+                dispatch(updateDayCall(userId, date, newDateInfo))
+                setFields({
+                    desired_loss_rate: ''
+                })
+            }
             setValidationErrors({
                 ...validationErrors,
-                incomplete: null
+                invalidDesired: null
             })
-            const bmr = calculateBmr(userInfo.gender, userInfo.weight, userInfo.height, userInfo.age)
-            const calorieSuggestion = calculateSuggestion(bmr, userInfo.activity_level, fields.desired_loss_rate)
-            const newDateInfo = {
-                desired_loss_rate: fields.desired_loss_rate,
-                bmr: bmr,
-                calorie_suggestion: calorieSuggestion
-            }
-            dispatch(updateUserCall(userId, fields))
-            dispatch(updateDayCall(userId, date, newDateInfo))
         }
+
+        
                     
     }
 
@@ -160,6 +177,7 @@ function DesiredLossForm() {
                     
                     {validationErrors.desired_loss_rate ? (<FormHelperText className={classes.formError} error>{validationErrors.desired_loss_rate}</FormHelperText>) : null}
                     {validationErrors.incomplete ? (<FormHelperText className={classes.formError} error>{validationErrors.incomplete}</FormHelperText>) : null}
+                    {validationErrors.invalidDesired ? (<FormHelperText className={classes.formError} error>{validationErrors.invalidDesired}</FormHelperText>) : null}
                     
                                 
                 </Grid>
