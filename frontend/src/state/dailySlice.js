@@ -53,7 +53,7 @@ export const dailySlice = createSlice({
             state.dailyInfo = {...state.dailyInfo, ...action.payload}
         },
         updateAllDailyInfo: (state, action) => {
-            state.allDailyInfo = [...state.dailyInfo, ...action.payload]
+            state.allDailyInfo = [...action.payload]
         }
     }
 })
@@ -67,7 +67,7 @@ export const {
     updateAllDailyInfo
 } = dailySlice.actions
 
-export const getAllDailyDataCall = (userId, onSuccess, onFailure) => dispatch => {
+export const getAllDailyDataCall = (userId) => dispatch => {
     dispatch(updateAllDailyInfoLoading())
 
     apiCalls.getAllDailyData(userId)

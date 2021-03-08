@@ -32,7 +32,6 @@ calorieEventRouter.post('/', async (req, res) => {
 })
 calorieEventRouter.delete('/:id', validateEventId, async (req, res) => {
     const id = parseInt(req.params.id)
-    console.log(id)
     try {
         const deleted = await events.remove(id)
         res.status(200).json({ message: "successfully deleted event" })
