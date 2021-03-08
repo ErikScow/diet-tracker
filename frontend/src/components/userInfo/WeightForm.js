@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '5px'
     },
     inputField: {
-        margin: '15px',
+        width: '200px'
     }
   }));
 
@@ -125,6 +125,8 @@ function WeightForm() {
                                         error={validationErrorsCheck.weight}
                                         size='small'
                                         fullWidth={true}
+
+                                        className={classes.inputField}
 
                                         name='weight'
                                         value={fields.weight}

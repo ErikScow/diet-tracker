@@ -14,11 +14,13 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         padding: '0',
-
+        paddingRight: '20px'
     },
     redText: {
-        color: 'red',
-        paddingLeft: '5px'
+        color: 'red'
+    },
+    container: {
+        marginBottom: '20px;'
     }
 
 }))
@@ -51,27 +53,22 @@ function Event(props) {
     }
 
     return (
-        <div>
-            
-                
-                <Grid item container direction='row' >
-                    <Grid item xs={4}>
+                <Grid item container direction='row' className={classes.container}>
+                    <Grid item xs={3}>
                        {props.positive ? <Typography type='p' className={classes.redText}>+ {props.magnitude} Cal</Typography> 
                         : <Typography type='p' className={classes.redText}>- {props.magnitude} Cal</Typography>} 
                     </Grid>
                     <Grid item xs={1}></Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={6} md={5}>
                         <Typography type='p' className={classes.redText}>{props.note}</Typography>
                     </Grid>
-                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}></Grid>
                     <Grid item xs={1}>
                        <IconButton onClick={deleteEvent} className={classes.button}><ClearIcon className={classes.red}/></IconButton> 
                     </Grid>
-                    <Grid item xs={2}></Grid>
+                    <Grid item xs={0} md={1}></Grid>
                 </Grid>
             
-            
-        </div>
     );
 }
 

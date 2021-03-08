@@ -21,6 +21,7 @@ const validationSchema = yup.object().shape({
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(0),
+        width: '200px'
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       },
       selectOption: {
           textAlign: 'left',
-          whiteSpace: 'normal'
+          whiteSpace: 'normal',
       },
       formError: {
           padding: '0 15px'
@@ -128,8 +129,8 @@ function ActivityForm() {
                                 <FormControl 
                                     variant='outlined' 
                                     size='small'
+                                    
                                     fullWidth={true}
-
                                     className={classes.formControl} 
                                 >
                                     <InputLabel id="activity_level">Activity Level</InputLabel>

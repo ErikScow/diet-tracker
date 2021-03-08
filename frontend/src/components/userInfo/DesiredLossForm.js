@@ -19,6 +19,7 @@ const validationSchema = yup.object().shape({
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(0),
+        width: '200px'
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
