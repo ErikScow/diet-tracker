@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import Nav from '../common/Nav'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -25,7 +25,21 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 function Welcome(props) {
+    
     const classes = useStyles()
+    const history = useHistory()
+    useEffect(()=> {
+        let mounted = true
+        if (mounted){
+            const token = localStorage.getItem('token')
+            if (token) {
+                history.push('/dashboard')
+            }
+        };
+        return function cleanup() {
+            mounted = false
+        }
+    },[])
 
     return (
         <div>
