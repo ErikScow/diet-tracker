@@ -61,6 +61,7 @@
 }
 
 .footer-container{
+  margin-top: 150px;
   background: #3f51b5;
   color: #080a17;
   flex-shrink: 0;
@@ -83,4 +84,8 @@ footer{
   display: block;
   color: #fff; 
   text-decoration: none;
+}
+
+.about{
+  text-align: left;
 }

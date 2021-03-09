@@ -11,7 +11,7 @@ function GraphContainer({data}) {
         let mounted = true
         if (mounted){
           const setResponsiveness = () => {
-            return window.innerWidth < 900
+            return window.innerWidth < 600
               ? setUseMobile(true)
               : setUseMobile(false)
           };
