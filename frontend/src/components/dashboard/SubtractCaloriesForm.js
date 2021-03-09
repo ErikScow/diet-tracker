@@ -110,6 +110,11 @@ function WeightForm() {
             const newDateInfo = {
                 calorie_total: newTotal
             }
+            setFields({
+                magnitude: '',
+                note: '',
+                positive: false
+            })
             dispatch(addCalorieEventCall(userId, date, fields))
             dispatch(updateDayCall(userId, date, newDateInfo))
         }
