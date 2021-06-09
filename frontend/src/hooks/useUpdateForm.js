@@ -35,7 +35,7 @@ const useUpdateForm = (type, currentVal) => {
       calorieSuggestion = calculateSuggestion(
         bmr,
         userInfo.activity_level,
-        userInfo.desired_weight_loss
+        userInfo.desired_loss_rate
       );
       newDayInfo = {
         weight: Number(currentVal),
@@ -54,7 +54,7 @@ const useUpdateForm = (type, currentVal) => {
       calorieSuggestion = calculateSuggestion(
         bmr,
         currentVal,
-        userInfo.desired_weight_loss
+        userInfo.desired_loss_rate
       );
       newDayInfo = {
         activity_level: currentVal,
@@ -63,7 +63,7 @@ const useUpdateForm = (type, currentVal) => {
       };
     }
     if (type === "DESIRED_LOSS") {
-      updatedField = { desired_weight_loss: currentVal };
+      updatedField = { desired_loss_rate: currentVal };
       bmr = calculateBmr(
         userInfo.gender,
         userInfo.weight,
@@ -76,19 +76,18 @@ const useUpdateForm = (type, currentVal) => {
         currentVal
       );
       newDayInfo = {
-        desired_weight_loss: currentVal,
+        desired_loss_rate: currentVal,
         bmr: bmr,
         calorie_suggestion: calorieSuggestion,
       };
     }
-    dispatch(updateUserInfo({ ...updatedField }));
-    dispatch(updateDailyInfo({ ...newDayInfo }));
+    dispatch(updateUserInfo(updatedField));
+    dispatch(updateDailyInfo(newDayInfo));
   };
 
   useEffect(() => {
     const timer = setTimeout(
       () => {
-        console.log("this doesnt happen often", currentVal);
         dispatch(updateUserCall(userId, updatedField));
         dispatch(updateDayCall(userId, date, newDayInfo));
       },

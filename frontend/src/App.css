@@ -1,91 +1,292 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.content-container {
+  width: 60%;
+  margin: auto;
+}
+
+.slider-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .App {
   min-height: 100vh;
-  text-align: center;
   display: flex;
   flex-direction: column;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px)
-  }
-  100% {
-    transform: translateY(0px)
-  }
-}
-
-
-.flex-media-query{
-  display: flex;
-  flex-direction: column;
-}
-
-@media(min-width: 965px){
-  .flex-media-query{
-    flex-direction: row;
-  }
-  .calorie-meter{
-    width: 50vw;
-  }
-}
-
-.content-container{
+.App .content-container {
   flex: 1 0 auto;
 }
-
-.footer-container{
-  margin-top: 150px;
-  background: #3f51b5;
-  color: #080a17;
+.App .footer-container {
+  background: #84ceeb;
   flex-shrink: 0;
-  text-align: start;
 }
-footer{
-  flex-shrink:0;
-  width: 80%;
+.App .footer-container footer {
+  flex-shrink: 0;
+  width: 60%;
   margin: 0 auto;
   padding: 20px 0;
   display: flex;
   flex-wrap: wrap;
-  
 }
-.footer-links-container{
-  width: 180px;
+.App .footer-container footer div {
+  width: 140px;
   padding-bottom: 10px;
 }
-.footer-links{
+.App .footer-container footer a {
   display: block;
-  color: #fff; 
+  color: #8860d0;
   text-decoration: none;
 }
 
-.about{
-  text-align: left;
+nav {
+  top: 0;
+  width: 100%;
+  margin: 0;
+  height: 36px;
+  background: #84ceeb;
+  z-index: 1002;
 }
+nav .nav-container {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+nav .nav-container h1 {
+  margin: 10px 0;
+}
+nav .nav-container .nav-links-container {
+  margin: 10px 0;
+}
+nav .nav-container .nav-links-container a {
+  margin-left: 40px;
+  color: #2e2e2e;
+  text-decoration: none;
+}
+nav .nav-container .nav-links-container a:hover {
+  color: #8860d0;
+}
+
+.login-inputs-container {
+  text-align: center;
+  width: 40%;
+  height: 30vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.login-inputs-container h2 {
+  font-size: 20px;
+  color: #2e2e2e;
+}
+.login-inputs-container Button {
+  width: 40%;
+}
+
+@media (max-width: 935px) {
+  .content-container {
+    width: 90%;
+  }
+}
+@media (max-width: 650px) {
+  .content-container {
+    font-size: 14px;
+  }
+}
+@media (max-width: 450px) {
+  .content-container {
+    font-size: 12px;
+  }
+}
+@media (max-width: 935px) {
+  nav .nav-container {
+    width: 90%;
+  }
+}
+@media (max-width: 650px) {
+  nav {
+    font-size: 14px;
+  }
+  nav .nav-container {
+    width: 90%;
+  }
+}
+@media (max-width: 450px) {
+  nav {
+    font-size: 12px;
+  }
+  nav .nav-container {
+    width: 90%;
+  }
+  nav .nav-container .nav-links-container a {
+    margin-left: 20px;
+  }
+}
+@media (max-width: 650px) {
+  .App .footer-container {
+    font-size: 14px;
+  }
+  .App .footer-container footer {
+    width: 90%;
+  }
+}
+@media (max-width: 450px) {
+  .App .footer-container {
+    font-size: 12px;
+  }
+  .App .footer-container footer {
+    width: 90%;
+  }
+}
+@media (max-width: 650px) {
+  .login-inputs-container {
+    width: 60%;
+    margin: 0 auto;
+  }
+}
+
+/*# sourceMappingURL=App.css.map */

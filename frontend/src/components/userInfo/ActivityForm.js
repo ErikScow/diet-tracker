@@ -54,36 +54,25 @@ function ActivityForm() {
   };
 
   const marks = [
-    { value: 0, label: "BMR" },
     { value: 250, label: "Low" },
     { value: 500, label: "Medium" },
     { value: 750, label: "High" },
-    { value: 1000, label: "Very High" },
+    { value: 1000, label: "Extreme" },
   ];
 
   return (
-    <div>
-      <Grid container direction="row">
-        <Grid item xs={1} sm={2} md={4} lg={4}></Grid>
-        <Grid item container direction="column" xs={10} sm={8} md={4} lg={4}>
-          <Box m={1}>
-            <Typography align="left">
-              Average Activity Level: {sliderValue} calories per day
-            </Typography>
-            <Grid>
-              <Slider
-                value={sliderValue}
-                min={0}
-                max={1000}
-                step={10}
-                onChange={handleChange}
-                marks={marks}
-              />
-            </Grid>
-          </Box>
-        </Grid>
-        <Grid item xs={1} sm={2} md={4} lg={4}></Grid>
-      </Grid>
+    <div className="slider-container">
+      <Typography align="left">
+        Average Activity: {sliderValue} cal / day
+      </Typography>
+      <Slider
+        value={sliderValue}
+        min={250}
+        max={1000}
+        step={10}
+        onChange={handleChange}
+        marks={marks}
+      />
     </div>
   );
 }

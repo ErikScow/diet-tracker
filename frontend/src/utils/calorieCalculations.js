@@ -18,6 +18,5 @@ export const calculateSuggestion = (
   const dailyCalorieDeficit = desiredLossPerWeekCalories / 7;
 
   const calorieSuggestion = bmr + dailyBurned - dailyCalorieDeficit;
-
   return Math.floor(calorieSuggestion);
 };

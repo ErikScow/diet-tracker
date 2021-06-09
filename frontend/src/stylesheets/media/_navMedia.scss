@@ -1,0 +1,30 @@
+@media (max-width: 935px) {
+  nav {
+    .nav-container {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  nav {
+    font-size: 14px;
+    .nav-container {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  nav {
+    font-size: 12px;
+    .nav-container {
+      width: 90%;
+      .nav-links-container {
+        a {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}

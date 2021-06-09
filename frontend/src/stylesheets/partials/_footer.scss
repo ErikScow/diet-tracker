@@ -1,0 +1,29 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .content-container {
+    flex: 1 0 auto;
+  }
+  .footer-container {
+    background: $secondary-background;
+    flex-shrink: 0;
+    footer {
+      flex-shrink: 0;
+      width: 60%;
+      margin: 0 auto;
+      padding: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      div {
+        width: 140px;
+        padding-bottom: 10px;
+      }
+      a {
+        display: block;
+        color: $secondary-text;
+        text-decoration: none;
+      }
+    }
+  }
+}

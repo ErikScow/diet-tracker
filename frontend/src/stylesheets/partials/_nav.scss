@@ -1,0 +1,29 @@
+nav {
+  top: 0;
+  width: 100%;
+  margin: 0;
+  height: 36px;
+  background: $secondary-background;
+  z-index: 1002;
+  .nav-container {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    h1 {
+      margin: 10px 0;
+    }
+    .nav-links-container {
+      margin: 10px 0;
+      a {
+        margin-left: 40px;
+        color: $primary-text;
+        text-decoration: none;
+        &:hover {
+          color: $secondary-text;
+        }
+      }
+    }
+  }
+}

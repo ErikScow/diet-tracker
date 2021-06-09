@@ -1,0 +1,17 @@
+.login-inputs-container {
+  text-align: center;
+  width: 40%;
+  height: 30vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  h2 {
+    font-size: 20px;
+    color: $primary-text;
+  }
+  Button {
+    width: 40%;
+  }
+}

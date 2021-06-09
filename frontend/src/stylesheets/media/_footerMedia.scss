@@ -1,0 +1,21 @@
+@media (max-width: 650px) {
+  .App {
+    .footer-container {
+      font-size: 14px;
+      footer {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .App {
+    .footer-container {
+      font-size: 12px;
+      footer {
+        width: 90%;
+      }
+    }
+  }
+}
