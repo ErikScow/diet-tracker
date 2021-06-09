@@ -138,12 +138,10 @@ function WeightForm() {
 
   return (
     <Fragment>
-      <Typography className={classes.sectionLabel}>
-        Add Extra Calorie Burn (subtract calories)
-      </Typography>
+      <p className="event-form-label">Add Exercise</p>
 
       <TextField
-        label="Note"
+        label="Description"
         variant="outlined"
         error={validationErrorsCheck.note}
         size="small"
@@ -154,7 +152,7 @@ function WeightForm() {
         onChange={handleChange}
       />
       <TextField
-        label="Calories"
+        label="Burned Calories"
         variant="outlined"
         error={validationErrorsCheck.magnitude}
         helperText={validationErrors.magnitude}
@@ -164,15 +162,6 @@ function WeightForm() {
         value={fields.magnitude}
         onChange={handleChange}
       />
-      <Button
-        className={classes.button}
-        variant="outlined"
-        type="button"
-        onClick={handleSubmit}
-      >
-        Add
-      </Button>
-
       {validationErrors.weight ? (
         <FormHelperText className={classes.formError} error>
           {validationErrors.weight}
@@ -183,6 +172,11 @@ function WeightForm() {
           {validationErrors.incomplete}
         </FormHelperText>
       ) : null}
+      <div className="event-form-button-container">
+        <Button variant="outlined" type="button" onClick={handleSubmit}>
+          Add
+        </Button>
+      </div>
     </Fragment>
   );
 }

@@ -20,7 +20,8 @@ function FormOne({
   nextStep,
 }) {
   return (
-    <Fragment>
+    <div className="form-container">
+      <h2>Register</h2>
       <TextField
         label="Name"
         variant="outlined"
@@ -31,6 +32,7 @@ function FormOne({
         name="name"
         value={fields.name}
         onChange={handleChange}
+        className="input"
       />
 
       <TextField
@@ -43,6 +45,7 @@ function FormOne({
         name="email"
         value={fields.email}
         onChange={handleChange}
+        className="input"
       />
 
       <TextField
@@ -56,12 +59,13 @@ function FormOne({
         name="password"
         value={fields.password}
         onChange={handleChange}
+        className="input"
       />
 
       <Button variant="outlined" type="button" onClick={nextStep}>
         Next
       </Button>
-    </Fragment>
+    </div>
   );
 }
 

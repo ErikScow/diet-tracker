@@ -1,18 +1,6 @@
-@media (max-width: 650px) {
+@media (max-width: 950px) {
   .App {
     .footer-container {
-      font-size: 14px;
-      footer {
-        width: 90%;
-      }
-    }
-  }
-}
-
-@media (max-width: 450px) {
-  .App {
-    .footer-container {
-      font-size: 12px;
       footer {
         width: 90%;
       }

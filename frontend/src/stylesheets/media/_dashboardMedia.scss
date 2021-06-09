@@ -1,0 +1,41 @@
+@media (max-width: 950px) {
+  .dashboard {
+    .top,
+    .bottom {
+      width: 100%;
+      padding: 0;
+      .section {
+        padding: 20px;
+      }
+      .calorie-meter {
+        width: 51%;
+        margin: 20px auto 0;
+      }
+      .event-list-container {
+        padding-bottom: 30px;
+      }
+      .update-form-container {
+        .div-button-container {
+          .div-button {
+            margin-top: 20px;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .dashboard {
+    .top,
+    .bottom {
+      .section {
+        padding: 10px;
+      }
+      .calorie-meter {
+        width: 80%;
+      }
+    }
+  }
+}

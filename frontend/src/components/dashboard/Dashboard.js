@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Typography, Divider, Grid } from "@material-ui/core";
+import { Typography, Divider, Grid, Button } from "@material-ui/core";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { formattedDate } from "../../utils/dateFormatting";
@@ -19,7 +19,7 @@ import {
   updateFormattedDate,
 } from "../../state/dailySlice";
 import { getCalorieEventsCall } from "../../state/eventsSlice";
-import { updateUserCall } from "../../state/userSlice";
+import { toggleUnderRecommended, updateUserCall } from "../../state/userSlice";
 import AddCaloriesForm from "./AddCaloriesForm";
 import SubtractCaloriesForm from "./SubtractCaloriesForm";
 import UpdateForm from "../userInfo/updateForm";
@@ -32,8 +32,14 @@ function Dashboard(props) {
 
   const userId = useSelector((state) => state.userSlice.userInfo.id);
   const userInfo = useSelector((state) => state.userSlice.userInfo);
-  const dailyData = useSelector((state) => state.dailySlice.dailyInfo);
-  const currentDate = useSelector((state) => state.dailySlice.formattedDate);
+  const calorie_suggestion = useSelector(
+    (state) => state.dailySlice.dailyInfo.calorie_suggestion
+  );
+  const underRecommended = useSelector((state) => {
+    console.log(state);
+    return state.userSlice.underRecommended;
+  });
+  const gender = useSelector((state) => state.userSlice.userInfo.gender);
 
   const date = formattedDate();
 
@@ -42,7 +48,19 @@ function Dashboard(props) {
     dispatch(updateFormattedDate(date));
     //the default day object is passed to redux to be used in case no day has yet been created
     dispatch(getTodayCall(userId, date, defaultDay));
-  }, []);
+    if (gender === "male" && calorie_suggestion < 1500 && !underRecommended) {
+      dispatch(toggleUnderRecommended());
+    }
+    if (gender === "female" && calorie_suggestion < 1200 && !underRecommended) {
+      dispatch(toggleUnderRecommended());
+    }
+    if (gender === "male" && calorie_suggestion >= 1500 && underRecommended) {
+      dispatch(toggleUnderRecommended());
+    }
+    if (gender === "female" && calorie_suggestion >= 1200 && underRecommended) {
+      dispatch(toggleUnderRecommended());
+    }
+  }, [calorie_suggestion]);
 
   const toggleUpdateForm = () => {
     setDisplayUpdateForm((prevState) => !prevState);
@@ -70,31 +88,57 @@ function Dashboard(props) {
     };
   };
 
-  return (
-    <div>
-      <CalorieMeter />
-      {displayUpdateForm ? (
-        <div className="update-and-button-container">
-          <div className="div-button-container">
-            <div className="div-button" onClick={toggleUpdateForm}>
-              <span>Close</span>
-              <ArrowDropUpIcon />
-            </div>
-          </div>
+  console.log(underRecommended, gender, userId, userInfo);
 
-          <UpdateForm />
-        </div>
-      ) : (
-        <div className="div-button-container">
-          <div className="div-button" onClick={toggleUpdateForm}>
-            <span>User Settings</span>
-            <ArrowDropDownIcon />
-          </div>
+  return (
+    <div className="dashboard">
+      {underRecommended && (
+        <div className="warning">
+          Your current selections for Average Activity and Desired Loss result
+          in a calorie suggestion below the recommended
+          {gender === "male" ? " 1500" : " 1200"} for typical
+          {gender === "male" ? " men" : " women"} at your weight. To fix this,
+          please either decrease your Desired Loss, or increase your Average
+          Activity.
         </div>
       )}
-      <AddCaloriesForm />
-      <SubtractCaloriesForm />
-      <EventsList />
+
+      <div className="top">
+        <div className="section calorie-meter">
+          <CalorieMeter />
+        </div>
+
+        <div className="section update-form-container">
+          {displayUpdateForm ? (
+            <div className="update-and-button-container">
+              <div className="div-button-container">
+                <div className="div-button" onClick={toggleUpdateForm}>
+                  <span>CLOSE</span>
+                  <ArrowDropUpIcon />
+                </div>
+              </div>
+
+              <UpdateForm />
+            </div>
+          ) : (
+            <div className="div-button-container">
+              <div className="div-button" onClick={toggleUpdateForm}>
+                <span>USER SETTINGS</span>
+                <ArrowDropDownIcon />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="bottom">
+        <div className="section events-form-container">
+          <AddCaloriesForm />
+          <SubtractCaloriesForm />
+        </div>
+        <div className="section event-list-container">
+          <EventsList />
+        </div>
+      </div>
     </div>
   );
 }

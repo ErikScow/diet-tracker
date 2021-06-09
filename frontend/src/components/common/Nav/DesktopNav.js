@@ -23,10 +23,10 @@ function DesktopNav() {
         <h1>Diet Journal</h1>
         <div className="nav-links-container">
           <Link to="/dashboard">Dashboard</Link>
-          <Link to="/userinfo">User Info</Link>
-          <Link to="/historical">Historical</Link>
           <Link to="/about">About</Link>
-          <Link onClick={logOut}>Logout</Link>
+          <Link to="/" onClick={logOut}>
+            Logout
+          </Link>
         </div>
       </Fragment>
     );

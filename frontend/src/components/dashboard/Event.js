@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     padding: "0",
-    paddingRight: "20px",
   },
   redText: {
     color: "red",
@@ -53,25 +52,32 @@ function Event(props) {
   };
 
   return (
-    <Fragment>
-      {props.positive ? (
-        <Typography type="p" className={classes.redText}>
-          + {props.magnitude} Cal
-        </Typography>
-      ) : (
-        <Typography type="p" className={classes.redText}>
-          - {props.magnitude} Cal
-        </Typography>
-      )}
+    <div className="event">
+      <div className="amount">
+        {props.positive ? (
+          <Typography type="p" className={classes.redText}>
+            + {props.magnitude} Cal
+          </Typography>
+        ) : (
+          <Typography type="p" className={classes.redText}>
+            - {props.magnitude} Cal
+          </Typography>
+        )}
+      </div>
 
-      <Typography type="p" className={classes.redText}>
-        {props.note}
-      </Typography>
+      <div className="description">
+        {" "}
+        <Typography type="p" className={classes.redText}>
+          {props.note}
+        </Typography>
+      </div>
 
-      <IconButton onClick={deleteEvent} className={classes.button}>
-        <ClearIcon className={classes.red} />
-      </IconButton>
-    </Fragment>
+      <div className="delete">
+        <IconButton onClick={deleteEvent} className={classes.button}>
+          <ClearIcon className={classes.red} />
+        </IconButton>
+      </div>
+    </div>
   );
 }
 

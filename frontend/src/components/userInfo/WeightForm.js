@@ -54,16 +54,16 @@ function ActivityForm() {
   };
 
   const marks = [
-    { value: 0, label: "0 lbs" },
-    { value: 100, label: "100 lbs" },
-    { value: 200, label: "200 lbs" },
-    { value: 300, label: "300 lbs" },
-    { value: 400, label: "400 lbs" },
+    { value: 0, label: "0" },
+    { value: 100, label: "100" },
+    { value: 200, label: "200" },
+    { value: 300, label: "300" },
+    { value: 400, label: "400" },
   ];
 
   return (
     <div className="slider-container">
-      <Typography align="left">Weight: {sliderValue} pounds</Typography>
+      <p>Weight: {sliderValue} lbs</p>
 
       <Slider
         value={sliderValue}
@@ -72,6 +72,7 @@ function ActivityForm() {
         step={1}
         onChange={handleChange}
         marks={marks}
+        className="slider input"
       />
     </div>
   );

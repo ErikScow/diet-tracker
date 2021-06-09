@@ -8,21 +8,32 @@
 
 @media (max-width: 650px) {
   nav {
-    font-size: 14px;
     .nav-container {
       width: 90%;
     }
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   nav {
-    font-size: 12px;
     .nav-container {
       width: 90%;
       .nav-links-container {
         a {
-          margin-left: 20px;
+          margin-left: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  nav {
+    .nav-container {
+      width: 95%;
+      .nav-links-container {
+        a {
+          margin-left: 12px;
         }
       }
     }

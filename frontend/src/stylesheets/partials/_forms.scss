@@ -1,7 +1,57 @@
 .slider-container {
-  width: 80%;
+  text-align: center;
   margin: 0 auto;
+  color: $tertiary-text;
+  p {
+    text-align: start;
+    margin-bottom: 10px;
+  }
+  .slider {
+    width: 93%;
+  }
 }
 
-.form-element {
+.update-container {
+  .input {
+    margin-bottom: 30px;
+  }
+}
+
+.div-button {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.form-container {
+  color: $tertiary-text;
+  text-align: center;
+  width: 40%;
+  margin: 0 auto 100px;
+  .input {
+    margin-bottom: 30px;
+  }
+  h2 {
+    font-size: 20px;
+    color: $primary-text;
+    margin: 40px 0;
+  }
+  .radio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  Button {
+    width: 40%;
+  }
+  .button-row {
+    display: flex;
+    justify-content: space-evenly;
+    Button {
+      width: 30%;
+    }
+  }
 }

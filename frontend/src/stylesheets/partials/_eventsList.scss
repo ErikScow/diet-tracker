@@ -1,0 +1,21 @@
+.events-list {
+  h3 {
+    color: $tertiary-text;
+    margin-bottom: 15px;
+  }
+  .events {
+    display: flex;
+    flex-direction: column;
+    .event {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      .amount {
+        width: 85px;
+      }
+      .description {
+        width: 190px;
+      }
+    }
+  }
+}

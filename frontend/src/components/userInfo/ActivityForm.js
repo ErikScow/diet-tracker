@@ -62,9 +62,7 @@ function ActivityForm() {
 
   return (
     <div className="slider-container">
-      <Typography align="left">
-        Average Activity: {sliderValue} cal / day
-      </Typography>
+      <p>Average Activity: {sliderValue} cal / day</p>
       <Slider
         value={sliderValue}
         min={250}
@@ -72,6 +70,7 @@ function ActivityForm() {
         step={10}
         onChange={handleChange}
         marks={marks}
+        className="slider"
       />
     </div>
   );

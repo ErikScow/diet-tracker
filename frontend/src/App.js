@@ -8,7 +8,6 @@ import Login from "./components/login/Login";
 import About from "./components/about/About";
 import Registration from "./components/registration/Registration";
 import Dashboard from "./components/dashboard/Dashboard";
-import UserInfo from "./components/userInfo/UserInfo";
 import Historical from "./components/historical/Historical";
 import { Typography } from "@material-ui/core";
 import Nav from "./components/common/Nav/Nav";
@@ -25,8 +24,6 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Registration} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/userinfo" component={UserInfo} />
-            <PrivateRoute path="/historical" component={Historical} />
           </Switch>
         </div>
 

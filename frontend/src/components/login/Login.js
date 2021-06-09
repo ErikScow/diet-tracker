@@ -105,7 +105,7 @@ function Login() {
   }, [fields]);
 
   return (
-    <div className="login-inputs-container">
+    <div className="form-container">
       <h2>Log In</h2>
       <TextField
         label="Email"
@@ -117,6 +117,7 @@ function Login() {
         name="email"
         value={fields.email}
         onChange={handleChange}
+        className="input"
       />
       <TextField
         label="Password"
@@ -129,6 +130,7 @@ function Login() {
         name="password"
         value={fields.password}
         onChange={handleChange}
+        className="input"
       />
       {validationErrors.incomplete ? (
         <FormHelperText className={classes.formError} error>

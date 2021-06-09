@@ -115,18 +115,15 @@ function Historical(props) {
   }, [historicalData]);
 
   return (
-    <div>
-      <Nav />
-      <Typography className={classes.graphTitle}>Weight</Typography>
+    <div className="historical">
+      <h3>Weight</h3>
       <GraphContainer data={weightData} />
-      <Typography className={classes.graphTitle}>Calorie Total</Typography>
+      <h3>Calorie Total</h3>
       <GraphContainer data={calorieTotalData} />
-      <Typography className={classes.graphTitle}>Calorie Suggestion</Typography>
+      <h3>Calorie Suggestion</h3>
       <GraphContainer data={calorieSuggestionData} />
 
-      <Typography className={classes.graphTitle}>
-        Basal Metabolic Rate
-      </Typography>
+      <h3>Basal Metabolic Rate</h3>
       <GraphContainer data={BMRData} />
     </div>
   );

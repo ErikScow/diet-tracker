@@ -81,8 +81,6 @@ const useUpdateForm = (type, currentVal) => {
         calorie_suggestion: calorieSuggestion,
       };
     }
-    dispatch(updateUserInfo(updatedField));
-    dispatch(updateDailyInfo(newDayInfo));
   };
 
   useEffect(() => {

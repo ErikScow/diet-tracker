@@ -37,11 +37,11 @@ function MobileNav() {
       <Fragment>
         <h1>Diet Journal</h1>
         <div className="nav-links-container">
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/userinfo">User Info</Link>
-          <Link to="/historical">Historical</Link>
+          <Link to="/dashboard">Dash</Link>
           <Link to="/about">About</Link>
-          <button onClick={logOut}>Logout</button>
+          <Link to="/" onClick={logOut}>
+            Logout
+          </Link>
         </div>
       </Fragment>
     );

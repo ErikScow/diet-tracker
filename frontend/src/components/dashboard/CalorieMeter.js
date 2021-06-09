@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: "30px",
     width: "100%",
+    textAlign: "center",
   },
 }));
 
@@ -37,28 +38,30 @@ function CalorieMeter(props) {
   const calorieSuggestion = useSelector(
     (state) => state.dailySlice.dailyInfo.calorie_suggestion
   );
+  const underRecommended = useSelector(
+    (state) => state.userSlice.underRecommended
+  );
+
+  console.log(underRecommended);
 
   return (
-    <div className={classes.container}>
-      <CircularProgressbarWithChildren
-        value={calorieTotal}
-        maxValue={calorieSuggestion}
-        strokeWidth={5}
-        styles={buildStyles({
-          strokeLinecap: "butt",
-        })}
-      >
-        <div>
-          <Typography variant="h3" className={classes.calorieIndicator}>
-            {calorieTotal}
-          </Typography>
-          <hr className={classes.divide} />
-          <Typography variant="h3" className={classes.calorieIndicator}>
-            {calorieSuggestion}
-          </Typography>
-        </div>
-      </CircularProgressbarWithChildren>
-    </div>
+    <CircularProgressbarWithChildren
+      value={calorieTotal}
+      maxValue={calorieSuggestion}
+      strokeWidth={5}
+      styles={buildStyles({
+        strokeLinecap: "butt",
+        pathColor: "#3f51b5",
+      })}
+    >
+      <div className="calorie-meter-container">
+        <p>{calorieTotal}</p>
+        <hr className="divide" />
+        <p className={underRecommended ? "not-good" : ""}>
+          {calorieSuggestion}
+        </p>
+      </div>
+    </CircularProgressbarWithChildren>
   );
 }
 

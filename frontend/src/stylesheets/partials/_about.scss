@@ -1,0 +1,29 @@
+.about {
+  margin: 0 auto 40px;
+  h2 {
+    color: $tertiary-text;
+    font-size: 34px;
+    padding: 20px 0;
+  }
+  h3 {
+    color: rgb(54, 54, 54);
+    font-size: 22px;
+    font-weight: bold;
+    padding: 14px 0;
+  }
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 0;
+  }
+  ul {
+    list-style-type: circle;
+    padding: 10px 0 10px 20px;
+  }
+  p {
+    font-size: 18px;
+  }
+  a {
+    color: $secondary-text;
+  }
+}

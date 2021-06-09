@@ -8,8 +8,15 @@
 @import "./partials/footer.scss";
 @import "./partials/nav";
 @import "./partials/login";
+@import "./partials/about.scss";
+@import "./partials/historical";
+@import "./partials/dashboard";
+@import "./partials/calorieMeter";
+@import "./partials/calorieForm";
+@import "./partials/eventsList";
 
 @import "./media/contentContainerMedia";
 @import "./media/navMedia";
 @import "./media/footerMedia";
-@import "./media/loginMedia";
+@import "./media/formMedia";
+@import "./media/dashboardMedia";

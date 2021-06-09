@@ -139,12 +139,9 @@ function AddCaloriesForm() {
 
   return (
     <Fragment>
-      <Typography className={classes.sectionLabel}>
-        Add Meal (add calories)
-      </Typography>
-
+      <p className="event-form-label">Add Calories</p>
       <TextField
-        label="Note"
+        label="Description"
         variant="outlined"
         error={validationErrorsCheck.note}
         size="small"
@@ -165,15 +162,6 @@ function AddCaloriesForm() {
         value={fields.magnitude}
         onChange={handleChange}
       />
-      <Button
-        className={classes.button}
-        variant="outlined"
-        type="button"
-        onClick={handleSubmit}
-      >
-        Add
-      </Button>
-
       {validationErrors.weight ? (
         <FormHelperText className={classes.formError} error>
           {validationErrors.weight}
@@ -184,6 +172,11 @@ function AddCaloriesForm() {
           {validationErrors.incomplete}
         </FormHelperText>
       ) : null}
+      <div className="event-form-button-container">
+        <Button variant="outlined" type="button" onClick={handleSubmit}>
+          Add
+        </Button>
+      </div>
     </Fragment>
   );
 }

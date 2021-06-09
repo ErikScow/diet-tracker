@@ -12,6 +12,10 @@ import {
   Box,
   InputLabel,
   FormHelperText,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
   FormControl,
   LinearProgress,
   Slider,
@@ -53,10 +57,12 @@ function FormTwo({
   const classes = useStyles();
 
   return (
-    <Fragment>
-      <div className="slider-container">
+    <div className="form-container">
+      <h2>Register</h2>
+      <div className="slider-container input">
         <p>Average Activity: {fields.activity_level} cal / day</p>
         <Slider
+          className="slider"
           value={fields.activity_level}
           min={250}
           max={1000}
@@ -71,9 +77,10 @@ function FormTwo({
         />
       </div>
 
-      <div className="slider-container">
+      <div className="slider-container input">
         <p>Desired Loss: {fields.desired_loss_rate} lbs / week</p>
         <Slider
+          className="slider"
           value={fields.desired_loss_rate}
           min={0}
           max={2.0}
@@ -89,27 +96,26 @@ function FormTwo({
         />
       </div>
 
-      <p>Gender</p>
-      <div>
-        <input
-          type="radio"
-          id="male"
+      <div className="radio input">
+        <p>Gender</p>
+        <RadioGroup
+          aria-label="gender"
           name="gender"
-          value="male"
+          value={fields.gender}
           onChange={handleChange}
-        />
-        <label for="male">Male</label>
-      </div>
-
-      <div>
-        <input
-          type="radio"
-          id="female"
-          name="gender"
-          value="female"
-          onChange={handleChange}
-        />
-        <label for="female">Female</label>
+          row
+        >
+          <FormControlLabel
+            value="female"
+            control={<Radio color="primary" />}
+            label="Female"
+          />
+          <FormControlLabel
+            value="male"
+            control={<Radio color="primary" />}
+            label="Male"
+          />
+        </RadioGroup>
       </div>
 
       <TextField
@@ -122,6 +128,7 @@ function FormTwo({
         name="weight"
         value={fields.weight}
         onChange={handleChange}
+        className="input"
       />
 
       <TextField
@@ -134,6 +141,7 @@ function FormTwo({
         name="height"
         value={fields.height}
         onChange={handleChange}
+        className="input"
       />
 
       <TextField
@@ -150,6 +158,7 @@ function FormTwo({
         name="birth_date"
         value={fields.birth_date}
         onChange={handleChange}
+        className="input"
       />
 
       {validationErrors.incomplete ? (
@@ -164,18 +173,20 @@ function FormTwo({
       ) : null}
       {registerLoading ? <LinearProgress /> : null}
 
-      <Button variant="outlined" type="button" onClick={prevStep}>
-        Back
-      </Button>
-      <Button
-        disabled={!isValid}
-        variant="outlined"
-        type="button"
-        onClick={handleSubmit}
-      >
-        Done
-      </Button>
-    </Fragment>
+      <div className="button-row">
+        <Button variant="outlined" type="button" onClick={prevStep}>
+          Back
+        </Button>
+        <Button
+          disabled={!isValid}
+          variant="outlined"
+          type="button"
+          onClick={handleSubmit}
+        >
+          Done
+        </Button>
+      </div>
+    </div>
   );
 }
 

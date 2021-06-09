@@ -42,7 +42,6 @@ function Welcome(props) {
 
   return (
     <div>
-      <Nav />
       <Grid item container direction="column" className={classes.firstBox}>
         <Typography variant="h5" className={classes.firstBoxText}>
           Landing Page in development

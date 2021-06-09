@@ -29,22 +29,22 @@ function EventsList(props) {
     dispatch(getCalorieEventsCall(userId, date));
   }, []);
   return (
-    <Fragment>
-      <Typography type="h3" className={classes.sectionLabel}>
-        Calorie Events
-      </Typography>
-      {allEvents.map((eventObject) => {
-        return (
-          <Event
-            key={eventObject.id}
-            id={eventObject.id}
-            note={eventObject.note}
-            magnitude={eventObject.magnitude}
-            positive={eventObject.positive}
-          />
-        );
-      })}
-    </Fragment>
+    <div className="events-list">
+      <h3>Calorie Events</h3>
+      <div className="events">
+        {allEvents.map((eventObject) => {
+          return (
+            <Event
+              key={eventObject.id}
+              id={eventObject.id}
+              note={eventObject.note}
+              magnitude={eventObject.magnitude}
+              positive={eventObject.positive}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

@@ -3,13 +3,13 @@
   width: 40%;
   height: 30vh;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  .input {
+    margin-bottom: 40px;
+  }
   h2 {
     font-size: 20px;
     color: $primary-text;
+    margin: 40px 0;
   }
   Button {
     width: 40%;
