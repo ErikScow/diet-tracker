@@ -35,7 +35,7 @@ function MobileNav() {
   if (loggedIn) {
     return (
       <Fragment>
-        <h1>Diet Journal</h1>
+        <h1>Diet Tracker</h1>
         <div className="nav-links-container">
           <Link to="/dashboard">Dash</Link>
           <Link to="/about">About</Link>
