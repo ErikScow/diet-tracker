@@ -1,0 +1,63 @@
+.demo-header {
+  color: $tertiary-text;
+  font-size: 18px;
+  text-align: center;
+  margin: 40px 0 5px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid $tertiary-text;
+}
+
+.demo-container {
+  margin: 30px 60px;
+  border: 1px solid $tertiary-text;
+  border-radius: 100px;
+  padding: 30px 60px;
+
+  .warning {
+    color: red;
+    background: rgb(255, 214, 210);
+    padding: 15px 30px;
+    border: 1px solid red;
+    border-radius: 20px;
+  }
+
+  .demo-meter-container {
+    padding: 20px 100px;
+  }
+
+  .demo-user-info-container {
+    .div-button-container {
+      display: flex;
+      justify-content: center;
+      .div-button {
+        color: $tertiary-text;
+        width: 160px;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        border: 1px solid grey;
+        border-radius: 5px;
+        margin: 30px;
+      }
+    }
+    .slider-container {
+      margin: 15px 0 40px;
+    }
+  }
+
+  .demo-calorie-event-list {
+    display: flex;
+    flex-direction: column;
+    .event {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      .amount {
+        width: 85px;
+      }
+      .description {
+        width: 190px;
+      }
+    }
+  }
+}

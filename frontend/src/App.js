@@ -24,6 +24,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Registration} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/historical" component={Historical} />
           </Switch>
         </div>
 

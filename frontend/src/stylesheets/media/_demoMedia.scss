@@ -1,0 +1,15 @@
+@media (max-width: 950px) {
+  .demo-container {
+    .demo-meter-container {
+      padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .demo-container {
+    margin: 30px 0;
+    padding: 10px 20px;
+    border-radius: 30px;
+  }
+}
