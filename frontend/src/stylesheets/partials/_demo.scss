@@ -8,10 +8,10 @@
 }
 
 .demo-container {
-  margin: 30px 60px;
+  margin: 30px 120px;
   border: 1px solid $tertiary-text;
-  border-radius: 100px;
-  padding: 30px 60px;
+  border-radius: 40px;
+  padding: 30px 120px;
 
   .warning {
     color: red;
@@ -48,6 +48,10 @@
   .demo-calorie-event-list {
     display: flex;
     flex-direction: column;
+    h6 {
+      color: $tertiary-text;
+      margin-bottom: 10px;
+    }
     .event {
       display: flex;
       justify-content: space-between;

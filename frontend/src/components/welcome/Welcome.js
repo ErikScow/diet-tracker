@@ -322,9 +322,9 @@ function Welcome(props) {
         {state.underRecommended && (
           <div className="warning">
             Your current selections for Average Activity and Desired Loss result
-            in a calorie suggestion below the recommended 1500 for typical
-            please either decrease your Desired Loss, or increase your Average
-            Activity.
+            in a calorie suggestion below the recommended 1500 for typical men
+            at your weight. To fix this, please either decrease your Desired
+            Loss, or increase your Average Activity.
           </div>
         )}
         <div className="demo-meter-container">
@@ -490,6 +490,7 @@ function Welcome(props) {
           </div>
         </div>
         <div className="demo-calorie-event-list">
+          <h6>Calorie Events</h6>
           {state.eventList.map((eventObject) => {
             return (
               <div className="event">

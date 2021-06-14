@@ -1,4 +1,19 @@
-@media (max-width: 950px) {
+@media (min-width: 2000px) {
+  .demo-container {
+    margin: 30px 300px;
+  }
+}
+
+@media (max-width: 1450px) {
+  .demo-container {
+    padding: 20px;
+    .demo-meter-container {
+      padding: 20px 100px;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
   .demo-container {
     .demo-meter-container {
       padding: 20px;

@@ -428,10 +428,10 @@ nav .nav-container .nav-links-container a:hover {
 }
 
 .demo-container {
-  margin: 30px 60px;
+  margin: 30px 120px;
   border: 1px solid #757575;
-  border-radius: 100px;
-  padding: 30px 60px;
+  border-radius: 40px;
+  padding: 30px 120px;
 }
 .demo-container .warning {
   color: red;
@@ -463,6 +463,10 @@ nav .nav-container .nav-links-container a:hover {
 .demo-container .demo-calorie-event-list {
   display: flex;
   flex-direction: column;
+}
+.demo-container .demo-calorie-event-list h6 {
+  color: #757575;
+  margin-bottom: 10px;
 }
 .demo-container .demo-calorie-event-list .event {
   display: flex;
@@ -563,7 +567,20 @@ nav .nav-container .nav-links-container a:hover {
     width: 80%;
   }
 }
-@media (max-width: 950px) {
+@media (min-width: 2000px) {
+  .demo-container {
+    margin: 30px 300px;
+  }
+}
+@media (max-width: 1450px) {
+  .demo-container {
+    padding: 20px;
+  }
+  .demo-container .demo-meter-container {
+    padding: 20px 100px;
+  }
+}
+@media (max-width: 1100px) {
   .demo-container .demo-meter-container {
     padding: 20px;
   }
